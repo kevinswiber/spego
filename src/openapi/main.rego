@@ -30,13 +30,13 @@ resolve_severity(entry, _default) = severity {
 }
 
 policy_refs := rs {
-	not data.ruleset
+	not data.openapi.ruleset
 	rs := {code |
 		openapi.policies[code]
 	}
 }
 
-policy_refs := data.ruleset
+policy_refs := data.openapi.ruleset
 
 problems[msg] {
 	policy_ref := policy_refs[_]

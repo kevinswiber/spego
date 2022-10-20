@@ -1,5 +1,0 @@
----
-ruleset:
-  - operation-parameters
-  - [operation-success-response, warn]
-  - operation-operationId-unique
