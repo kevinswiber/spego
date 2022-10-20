@@ -1,7 +1,7 @@
 ---
 openapi:
   ruleset:
-    #- operation-parameters
-    #- [operation-success-response, warn]
-    #- operation-operationId-unique
+    - operation-parameters
+    - [operation-success-response, warn]
+    - operation-operationId-unique
     - operation-tag-defined
