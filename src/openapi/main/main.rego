@@ -1,4 +1,4 @@
-package openapi
+package openapi.main
 
 import data.openapi
 
@@ -30,13 +30,13 @@ resolve_severity(entry, _default) = severity {
 }
 
 policy_refs := rs {
-	not data.openapi.ruleset
+	not openapi.ruleset
 	rs := {code |
 		openapi.policies[code]
 	}
 }
 
-policy_refs := data.openapi.ruleset
+policy_refs := openapi.ruleset
 
 problems[msg] {
 	policy_ref := policy_refs[_]

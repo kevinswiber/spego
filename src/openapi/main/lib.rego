@@ -1,4 +1,4 @@
-package openapi.lib
+package openapi.main.lib
 
 has_key(x, k) {
 	_ = x[k]

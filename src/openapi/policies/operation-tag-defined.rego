@@ -1,6 +1,6 @@
 package openapi.policies["operation-tag-defined"]
 
-import data.openapi.lib
+import data.openapi.main.lib
 import future.keywords.in
 
 # METADATA

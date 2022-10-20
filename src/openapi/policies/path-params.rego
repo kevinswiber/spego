@@ -1,6 +1,6 @@
 package openapi.policies["path-params"]
 
-import data.openapi.lib
+import data.openapi.main.lib
 
 # METADATA
 # title: path-params

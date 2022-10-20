@@ -1,6 +1,6 @@
 package openapi.policies["operation-success-response"]
 
-import data.openapi.lib
+import data.openapi.main.lib
 
 # METADATA
 # title: operation-success-response
