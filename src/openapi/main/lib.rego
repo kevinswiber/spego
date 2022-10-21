@@ -1,9 +1,5 @@
 package openapi.main.lib
 
-has_key(x, k) {
-	_ = x[k]
-}
-
 is_method_valid(method) {
 	methods := {"get", "put", "post", "delete", "options", "head", "patch", "trace", "query"}
 	methods[_] == method
