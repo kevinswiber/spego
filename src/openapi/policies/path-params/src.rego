@@ -19,8 +19,14 @@ results[lib.format_msg(rego.metadata.rule(), path, message)] {
 		input.paths[p]
 	]
 
-	dupes := {pair | some i1, i2; normalized_paths[i1] == normalized_paths[i2]; pair := {i1, i2}; count(pair) > 1}
-	dupes[pair]
+	dupes := [pair |
+		some i1, i2
+		normalized_paths[i1] == normalized_paths[i2]
+		not i1 == i2
+		pair := [i1, i2]
+	]
+
+	pair := dupes[_]
 
 	i1 := pair[0]
 	i2 := pair[1]
