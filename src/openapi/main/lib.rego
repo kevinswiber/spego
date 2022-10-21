@@ -9,24 +9,6 @@ is_method_valid(method) {
 	methods[_] == method
 }
 
-op_has_success_code(responses) {
-	responses["2xx"]
-}
-
-op_has_success_code(responses) {
-	responses["3xx"]
-}
-
-op_has_success_code(responses) {
-	success_codes := [code |
-		responses[code]
-		k := to_number(code)
-		k >= 200
-		k < 400
-	]
-	count(success_codes) > 0
-}
-
 escape(s) = t {
 	t := replace(s, "/", "~1")
 }
