@@ -103,3 +103,33 @@ get_msg(code, p_codes) = {msg} {
 		"status": "success",
 	}
 }
+
+warn[msg] {
+	result := openapi.main.problems[_]
+	result.severity == "warn"
+	escaped := [segment | s := result.path[_]; segment := openapi.main.lib.escape(s)]
+	pointer := sprintf("#%s", [concat("/", escaped)])
+	msg := {
+		"msg": sprintf("%s [%s]", [result.message, pointer]),
+		"details": {
+			"code": result.code,
+			"severity": result.severity,
+			"path": result.path,
+		},
+	}
+}
+
+violation[msg] {
+	result := openapi.main.problems[_]
+	not result.severity == "warn"
+	escaped := [segment | s := result.path[_]; segment := openapi.main.lib.escape(s)]
+	pointer := sprintf("#%s", [concat("/", escaped)])
+	msg := {
+		"msg": sprintf("%s [%s]", [result.message, pointer]),
+		"details": {
+			"code": result.code,
+			"severity": result.severity,
+			"path": result.path,
+		},
+	}
+}
