@@ -47,7 +47,7 @@ problems[msg] {
 	result := openapi.policies[code].results[key]
 	key.code == code
 
-	severity_default := resolve_result_severity(result, "error")
+	severity_default := resolve_result_severity(result, "warn")
 	severity := resolve_severity(policy_ref, severity_default)
 
 	msg := {
@@ -121,7 +121,7 @@ warn[msg] {
 
 violation[msg] {
 	result := openapi.main.problems[_]
-	not result.severity == "warn"
+	result.severity == "error"
 	escaped := [segment | s := result.path[_]; segment := openapi.main.lib.escape(s)]
 	pointer := sprintf("#%s", [concat("/", escaped)])
 	msg := {

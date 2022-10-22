@@ -1,5 +1,5 @@
 openapi:
   ruleset:
-    - [operation-success-response, warn]
+    - [operation-success-response, error]
     - operation-parameters
     - operation-operationId-unique
