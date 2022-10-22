@@ -10,12 +10,22 @@ path_regex := "(\\{;?\\??[a-zA-Z0-9_-]+\\*?\\})"
 # custom:
 #   severity: error
 results[lib.format_msg(rego.metadata.rule(), path, message)] {
+	paths := input.paths
+
+	path_collision_results := get_path_collision_results(paths)
+	path_obj_results := get_all_path_obj_results(paths)
+
+	all_results := path_collision_results | path_obj_results
+	all_results[[path, message]]
+}
+
+get_path_collision_results(paths_obj) = {[p, m] |
 	normalized_paths := [normalized |
-		input.paths[p]
-		normalized := regex.replace(p, path_regex, "%")
+		paths_obj[path]
+		normalized := regex.replace(path, path_regex, "%")
 	]
-	paths := [p |
-		input.paths[p]
+	paths := [path |
+		paths_obj[path]
 	]
 
 	dupes := [pair |
@@ -30,21 +40,24 @@ results[lib.format_msg(rego.metadata.rule(), path, message)] {
 	i1 := pair[0]
 	i2 := pair[1]
 
-	message = sprintf("Paths \"%s\" and \"%s\" must not be equivalent.", [paths[i1], paths[i2]])
-	path = ["paths", paths[i2]]
+	m = sprintf("Paths \"%s\" and \"%s\" must not be equivalent.", [paths[i1], paths[i2]])
+	p = ["paths", paths[i2]]
 }
 
-# METADATA
-# title: path-params
-# description: Path parameters must be defined and valid.
-# custom:
-#   severity: error
-results[lib.format_msg(rego.metadata.rule(), path, message)] {
-	input.paths[p]
-	path := ["paths", p]
+get_all_path_obj_results(paths) = path_obj_results {
+	path_obj := paths[path_key]
+
+	duplicate_var_name_in_path_results := get_duplicate_var_name_in_path_results(path_key)
+	path_param_results = get_all_path_parameter_results(path_obj, path_key)
+
+	path_obj_results := duplicate_var_name_in_path_results | path_param_results
+}
+
+get_duplicate_var_name_in_path_results(path_key) = {[path, message] |
+	path = ["paths", path_key]
 
 	matches := [match |
-		all_matches := regex.find_n(path_regex, p, -1)
+		all_matches := regex.find_n(path_regex, path_key, -1)
 		m := all_matches[_]
 		match := regex.replace(m, "[{}?*;]", "")
 	]
@@ -58,43 +71,57 @@ results[lib.format_msg(rego.metadata.rule(), path, message)] {
 
 	dupes[dupe]
 
-	message = sprintf("Path \"%s\" must not use parameter \"{%s}\" multiple times.", [p, dupe])
+	message = sprintf("Path \"%s\" must not use parameter \"{%s}\" multiple times.", [path_key, dupe])
 }
 
-# METADATA
-# title: path-params
-# description: Path parameters must be defined and valid.
-# custom:
-#   severity: error
-results[lib.format_msg(rego.metadata.rule(), path, message)] {
-	op := input.paths[p]
-	param := op.parameters[i]
+get_all_path_parameter_results(path_obj, path_key) = path_parameter_results {
+	not path_obj.parameters
+	path_parameter_results = set()
+}
+
+get_all_path_parameter_results(path_obj, path_key) = path_parameter_results {
+	not is_array(path_obj.parameters)
+	path_parameter_results = set()
+}
+
+get_all_path_parameter_results(path_obj, path_key) = path_parameter_results {
+	parameters := path_obj.parameters
+	path_param_missing_requires_results := get_path_param_missing_required_results(parameters, path_key)
+	duplicate_path_param_definition_results := get_duplicate_path_param_definition_results(parameters, path_key)
+
+	path_parameter_results = path_param_missing_requires_results | duplicate_path_param_definition_results
+}
+
+get_path_param_missing_required_results(parameters, path_key) := {[path, message] |
+	path_params := get_unique_named_path_params(parameters)
+
+	path_params[[param, i]]
 
 	param.name
 	param.in == "path"
 
 	not param.required == true
 
-	path := ["paths", p, "parameters", sprintf("%d", [i])]
-	message := sprintf("Path parameter \"%s\" must have \"required\" property that is set to \"true\".", [param.name])
+	path = ["paths", path_key, "parameters", sprintf("%d", [i])]
+	message = sprintf("Path parameter \"%s\" must have \"required\" property that is set to \"true\".", [param.name])
 }
 
-# METADATA
-# title: path-params
-# description: Path parameters must be defined and valid.
-# custom:
-#   severity: error
-results[lib.format_msg(rego.metadata.rule(), path, message)] {
-	op := input.paths[p]
-	path_params := [[param.name, i] |
-		param := op.parameters[i]
+add_to_arr(obj, name, value) = a {
+	not obj[name]
+	a = [value]
+}
 
-		param.name
-		param.in == "path"
-	]
+add_to_arr(obj, name, value) = a {
+	val := obj[name]
+	a = array.concat(val, [value])
+}
+
+get_duplicate_path_param_definition_results(parameters, path_key) := {[path, message] |
+	path_params := get_named_path_params(parameters)
 
 	names := [name |
-		[name, _] := path_params[_]
+		[param, _] := path_params[_]
+		name = param.name
 	]
 
 	indexes := [index |
@@ -104,6 +131,14 @@ results[lib.format_msg(rego.metadata.rule(), path, message)] {
 	names[i1] == names[i2]
 	not i1 == i2
 
-	path := ["paths", p, "parameters", sprintf("%d", [indexes[i2]])]
-	message := sprintf("Path parameter \"%s\" must not be defined multiple times.", [names[i1]])
+	path = ["paths", path_key, "parameters", sprintf("%d", [indexes[i2]])]
+	message = sprintf("Path parameter \"%s\" must not be defined multiple times.", [names[i1]])
 }
+
+get_named_path_params(params) := [[param, i] |
+	param = params[i]
+	param.name
+	param.in == "path"
+]
+
+get_unique_named_path_params(params) := {p | p = get_named_path_params(params)[_]}
