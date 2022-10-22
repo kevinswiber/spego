@@ -106,33 +106,25 @@ get_path_param_missing_required_results(parameters, path_key) := {[path, message
 	message = sprintf("Path parameter \"%s\" must have \"required\" property that is set to \"true\".", [param.name])
 }
 
-add_to_arr(obj, name, value) = a {
-	not obj[name]
-	a = [value]
-}
-
-add_to_arr(obj, name, value) = a {
-	val := obj[name]
-	a = array.concat(val, [value])
-}
-
 get_duplicate_path_param_definition_results(parameters, path_key) := {[path, message] |
 	path_params := get_named_path_params(parameters)
 
-	names := [name |
+	dupes := {name: val |
 		[param, _] := path_params[_]
 		name = param.name
-	]
 
-	indexes := [index |
-		[_, index] := path_params[_]
-	]
+		val := {index |
+			[param, index] = path_params[_]
+			name == param.name
+		}
+		count(val) > 1
+	}
 
-	names[i1] == names[i2]
-	not i1 == i2
+	dupes[n] = dupe_indexes
+	dupe_indexes[i]
 
-	path = ["paths", path_key, "parameters", sprintf("%d", [indexes[i2]])]
-	message = sprintf("Path parameter \"%s\" must not be defined multiple times.", [names[i1]])
+	path = ["paths", path_key, "parameters", sprintf("%d", [i])]
+	message = sprintf("Path parameter \"%s\" must not be defined multiple times.", [n])
 }
 
 get_named_path_params(params) := [[param, i] |
