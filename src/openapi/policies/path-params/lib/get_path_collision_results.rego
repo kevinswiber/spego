@@ -1,4 +1,4 @@
-package openapi.policies["path-params"]
+package openapi.policies["path-params"].lib
 
 get_path_collision_results(paths_obj) := {[p, m] |
 	normalized_paths := [normalized |

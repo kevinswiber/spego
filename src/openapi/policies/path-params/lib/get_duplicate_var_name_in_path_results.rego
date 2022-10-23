@@ -1,7 +1,7 @@
-package openapi.policies["path-params"]
+package openapi.policies["path-params"].lib
 
 get_duplicate_var_name_in_path_results(path_key) := {[path, message] |
-	path = ["paths", path_key]
+	path := ["paths", path_key]
 
 	matches := [match |
 		all_matches := regex.find_n(path_regex, path_key, -1)

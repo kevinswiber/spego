@@ -4,5 +4,8 @@
     "openapi/lib",
     "openapi/main",
     "openapi/policies"
+  ],
+  "required_builtins": [
+    "regex"
   ]
 }

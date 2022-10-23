@@ -1,8 +1,7 @@
 package openapi.policies["path-params"]
 
 import data.openapi.lib
-
-path_regex := "(\\{;?\\??[a-zA-Z0-9_-]+\\*?\\})"
+import data.openapi.policies["path-params"].lib as policy_lib
 
 # METADATA
 # title: path-params
@@ -12,22 +11,20 @@ path_regex := "(\\{;?\\??[a-zA-Z0-9_-]+\\*?\\})"
 results[lib.format_msg(rego.metadata.rule(), path, message)] {
 	paths := input.paths
 
-	path_collision_results := get_top_level_paths_results(paths)
-	path_obj_results := get_all_path_obj_results(paths)
+	r1 := policy_lib.get_path_collision_results(paths)
+	r2 := get_all_path_obj_results(paths)
 
-	all_results := path_collision_results | path_obj_results
+	all_results := r1 | r2
 	all_results[[path, message]]
 }
-
-get_top_level_paths_results(paths) := get_path_collision_results(paths)
 
 get_all_path_obj_results(paths) := path_obj_results {
 	path_obj := paths[path_key]
 
-	duplicate_var_name_in_path_results := get_duplicate_var_name_in_path_results(path_key)
-	path_param_results = get_all_path_parameter_results(path_obj, path_key)
+	r1 := policy_lib.get_duplicate_var_name_in_path_results(path_key)
+	r2 = get_all_path_parameter_results(path_obj, path_key)
 
-	path_obj_results := duplicate_var_name_in_path_results | path_param_results
+	path_obj_results := r1 | r2
 }
 
 get_all_path_parameter_results(path_obj, path_key) := path_parameter_results {
@@ -42,8 +39,9 @@ get_all_path_parameter_results(path_obj, path_key) := path_parameter_results {
 
 get_all_path_parameter_results(path_obj, path_key) := path_parameter_results {
 	parameters := path_obj.parameters
-	path_param_missing_requires_results := get_path_param_missing_required_results(parameters, path_key)
-	duplicate_path_param_definition_results := get_duplicate_path_param_definition_results(parameters, path_key)
 
-	path_parameter_results := path_param_missing_requires_results | duplicate_path_param_definition_results
+	r1 := policy_lib.get_path_param_missing_required_results(parameters, path_key)
+	r2 := policy_lib.get_duplicate_path_param_definition_results(parameters, path_key)
+
+	path_parameter_results := r1 | r2
 }

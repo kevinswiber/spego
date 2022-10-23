@@ -1,4 +1,4 @@
-package openapi.policies["path-params"]
+package openapi.policies["path-params"].lib
 
 get_duplicate_path_param_definition_results(parameters, path_key) := {[path, message] |
 	path_params := get_named_path_params(parameters)
