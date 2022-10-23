@@ -1,4 +1,4 @@
-package openapi.main.lib
+package openapi.lib
 
 is_method_valid(method) {
 	methods := {"get", "put", "post", "delete", "options", "head", "patch", "trace", "query"}

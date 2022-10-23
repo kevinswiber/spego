@@ -1,6 +1,7 @@
 {
   "revision": "0.1.0",
   "roots": [
+    "openapi/lib",
     "openapi/main",
     "openapi/policies"
   ]

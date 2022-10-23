@@ -1,6 +1,6 @@
 package openapi.policies["operation-parameters"]
 
-import data.openapi.main.lib
+import data.openapi.lib
 
 # METADATA
 # title: operation-parameters

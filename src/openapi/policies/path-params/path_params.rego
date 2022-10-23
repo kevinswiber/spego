@@ -1,6 +1,6 @@
 package openapi.policies["path-params"]
 
-import data.openapi.main.lib
+import data.openapi.lib
 
 path_regex := "(\\{;?\\??[a-zA-Z0-9_-]+\\*?\\})"
 
@@ -40,8 +40,8 @@ get_path_collision_results(paths_obj) = {[p, m] |
 	i1 := pair[0]
 	i2 := pair[1]
 
-	m = sprintf("Paths \"%s\" and \"%s\" must not be equivalent.", [paths[i1], paths[i2]])
-	p = ["paths", paths[i2]]
+	m := sprintf("Paths \"%s\" and \"%s\" must not be equivalent.", [paths[i1], paths[i2]])
+	p := ["paths", paths[i2]]
 }
 
 get_all_path_obj_results(paths) = path_obj_results {
@@ -71,17 +71,17 @@ get_duplicate_var_name_in_path_results(path_key) = {[path, message] |
 
 	dupes[dupe]
 
-	message = sprintf("Path \"%s\" must not use parameter \"{%s}\" multiple times.", [path_key, dupe])
+	message := sprintf("Path \"%s\" must not use parameter \"{%s}\" multiple times.", [path_key, dupe])
 }
 
 get_all_path_parameter_results(path_obj, path_key) = path_parameter_results {
 	not path_obj.parameters
-	path_parameter_results = set()
+	path_parameter_results := set()
 }
 
 get_all_path_parameter_results(path_obj, path_key) = path_parameter_results {
 	not is_array(path_obj.parameters)
-	path_parameter_results = set()
+	path_parameter_results := set()
 }
 
 get_all_path_parameter_results(path_obj, path_key) = path_parameter_results {
@@ -89,7 +89,7 @@ get_all_path_parameter_results(path_obj, path_key) = path_parameter_results {
 	path_param_missing_requires_results := get_path_param_missing_required_results(parameters, path_key)
 	duplicate_path_param_definition_results := get_duplicate_path_param_definition_results(parameters, path_key)
 
-	path_parameter_results = path_param_missing_requires_results | duplicate_path_param_definition_results
+	path_parameter_results := path_param_missing_requires_results | duplicate_path_param_definition_results
 }
 
 get_path_param_missing_required_results(parameters, path_key) := {[path, message] |
@@ -102,8 +102,8 @@ get_path_param_missing_required_results(parameters, path_key) := {[path, message
 
 	not param.required == true
 
-	path = ["paths", path_key, "parameters", sprintf("%d", [i])]
-	message = sprintf("Path parameter \"%s\" must have \"required\" property that is set to \"true\".", [param.name])
+	path := ["paths", path_key, "parameters", sprintf("%d", [i])]
+	message := sprintf("Path parameter \"%s\" must have \"required\" property that is set to \"true\".", [param.name])
 }
 
 get_duplicate_path_param_definition_results(parameters, path_key) := {[path, message] |
@@ -123,8 +123,8 @@ get_duplicate_path_param_definition_results(parameters, path_key) := {[path, mes
 	dupes[n] = dupe_indexes
 	dupe_indexes[i]
 
-	path = ["paths", path_key, "parameters", sprintf("%d", [i])]
-	message = sprintf("Path parameter \"%s\" must not be defined multiple times.", [n])
+	path := ["paths", path_key, "parameters", sprintf("%d", [i])]
+	message := sprintf("Path parameter \"%s\" must not be defined multiple times.", [n])
 }
 
 get_named_path_params(params) := [[param, i] |

@@ -1,6 +1,6 @@
 package openapi.main
 
-import data.openapi
+import data.openapi.lib
 
 resolve_code(policy_ref) = code {
 	code := policy_ref[0]
@@ -30,13 +30,13 @@ resolve_severity(entry, _default) = severity {
 }
 
 policy_refs := rs {
-	not openapi.ruleset
+	not data.openapi.ruleset
 	rs := {code |
-		openapi.policies[code]
+		data.openapi.policies[code]
 	}
 }
 
-policy_refs := openapi.ruleset
+policy_refs := data.openapi.ruleset
 
 # METADATA
 # title: problems
@@ -44,7 +44,7 @@ policy_refs := openapi.ruleset
 problems[msg] {
 	policy_ref := policy_refs[_]
 	code := resolve_code(policy_ref)
-	result := openapi.policies[code].results[key]
+	result := data.openapi.policies[code].results[key]
 	key.code == code
 
 	severity_default := resolve_result_severity(result, "warn")
@@ -105,9 +105,9 @@ get_msg(code, p_codes) = {msg} {
 }
 
 warn[msg] {
-	result := openapi.main.problems[_]
+	result := problems[_]
 	result.severity == "warn"
-	escaped := [segment | s := result.path[_]; segment := openapi.main.lib.escape(s)]
+	escaped := [segment | s := result.path[_]; segment := lib.escape(s)]
 	pointer := sprintf("#%s", [concat("/", escaped)])
 	msg := {
 		"msg": sprintf("%s [%s]", [result.message, pointer]),
@@ -120,9 +120,9 @@ warn[msg] {
 }
 
 violation[msg] {
-	result := openapi.main.problems[_]
+	result := problems[_]
 	result.severity == "error"
-	escaped := [segment | s := result.path[_]; segment := openapi.main.lib.escape(s)]
+	escaped := [segment | s := result.path[_]; segment := lib.escape(s)]
 	pointer := sprintf("#%s", [concat("/", escaped)])
 	msg := {
 		"msg": sprintf("%s [%s]", [result.message, pointer]),

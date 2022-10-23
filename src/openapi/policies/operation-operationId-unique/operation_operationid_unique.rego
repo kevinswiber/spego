@@ -1,6 +1,6 @@
 package openapi.policies["operation-operationId-unique"]
 
-import data.openapi.main.lib
+import data.openapi.lib
 
 operation_ids := [operationId |
 	operationId := input.paths[_][_].operationId
