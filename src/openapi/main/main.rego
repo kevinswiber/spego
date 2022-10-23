@@ -2,30 +2,30 @@ package openapi.main
 
 import data.openapi.lib
 
-resolve_code(policy_ref) = code {
+resolve_code(policy_ref) := code {
 	code := policy_ref[0]
 }
 
-resolve_code(policy_ref) = code {
+resolve_code(policy_ref) := code {
 	not policy_ref[0]
 	code := policy_ref
 }
 
-resolve_result_severity(result, _default) = severity {
+resolve_result_severity(result, _default) := severity {
 	severity := result.severity
 }
 
-resolve_result_severity(result, _default) = severity {
+resolve_result_severity(result, _default) := severity {
 	not result.severity
 	severity := _default
 }
 
-resolve_severity(entry, _default) = severity {
+resolve_severity(entry, _default) := severity {
 	not entry[1]
 	severity := _default
 }
 
-resolve_severity(entry, _default) = severity {
+resolve_severity(entry, _default) := severity {
 	severity := entry[1]
 }
 
@@ -82,7 +82,7 @@ results[msg] {
 	messages[msg]
 }
 
-get_msg(code, p_codes) = msgs {
+get_msg(code, p_codes) := msgs {
 	p_codes[code]
 	msgs := {msg |
 		problems[key].code == code
@@ -96,7 +96,7 @@ get_msg(code, p_codes) = msgs {
 	}
 }
 
-get_msg(code, p_codes) = {msg} {
+get_msg(code, p_codes) := {msg} {
 	not p_codes[code]
 	msg := {
 		"code": code,
