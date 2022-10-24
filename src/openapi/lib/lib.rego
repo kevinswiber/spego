@@ -11,21 +11,29 @@ escape(s) := t {
 
 format(meta, path) := result {
 	result = object.union(
+		get_custom_or_default(meta),
 		{
 			"code": meta.title,
 			"path": path,
 		},
-		meta.custom,
 	)
 }
 
 format_msg(meta, path, message) := result {
 	result = object.union(
-		meta.custom,
+		get_custom_or_default(meta),
 		{
 			"code": meta.title,
 			"path": path,
 			"message": message,
 		},
 	)
+}
+
+get_custom_or_default(meta) := custom {
+	custom := meta.custom
+}
+
+get_custom_or_default(meta) := custom {
+	custom := {}
 }
