@@ -55,6 +55,14 @@ get_all_path_parameter_results(path_obj, path_key) := path_parameter_results {
 	path_parameter_results := (r1 | r2) | r3
 }
 
+get_all_operation_results(path_obj, path_key, top_params) := operation_results {
+	all_op_results := {op_result |
+		operation := path_obj[method]
+		op_result := get_operation_results(operation, method, path_key, top_params)
+	}
+	operation_results := union(all_op_results)
+}
+
 get_operation_results(operation, method, path_key, top_params) := operation_results {
 	not lib.is_method_valid(method)
 	operation_results := set()
@@ -65,18 +73,11 @@ get_operation_results(operation, method, path_key, top_params) := operation_resu
 	path := ["paths", path_key, method]
 
 	[r1, inner_params] := get_all_operation_parameter_results(operation, path)
+
 	defined_params := top_params | inner_params
-	r2 := get_param_asymmetry_results(defined_params, path_key, path)
+	r2 := policy_lib.get_param_asymmetry_results(defined_params, path_key, path)
 
 	operation_results := r1 | r2
-}
-
-get_all_operation_results(path_obj, path_key, top_params) := operation_results {
-	all_op_results := {op_result |
-		operation := path_obj[method]
-		op_result := get_operation_results(operation, method, path_key, top_params)
-	}
-	operation_results := union(all_op_results)
 }
 
 get_all_operation_parameter_results(operation, path) := [operation_parameter_results, inner_params] {
@@ -92,34 +93,4 @@ get_all_operation_parameter_results(operation, path) := [operation_parameter_res
 	r1 := policy_lib.get_path_param_missing_required_results(op_params, path)
 	r2 := policy_lib.get_duplicate_path_param_definition_results(op_params, path)
 	operation_parameter_results := r1 | r2
-}
-
-get_param_asymmetry_results(defined_params, path_key, path) := asymmetry_results {
-	path_elements := {match |
-		all_matches := regex.find_n(policy_lib.path_regex, path_key, -1)
-		m := all_matches[_]
-		match := regex.replace(m, "[{}?*;]", "")
-	}
-
-	unused_path_param_results := {[p, m] |
-		defined_params[param]
-		not path_elements[param]
-
-		p := param[1]
-		m := sprintf("Parameter \"%s\" must be used in path \"%s\".", [param[0].name, path_key])
-	}
-
-	undefined_path_param_results := {[p, m] |
-		defined_names := {name |
-			name := defined_params[_].name
-		}
-
-		path_elements[element_name]
-		not defined_names[element_name]
-
-		p := path
-		m := sprintf("Operation must define parameter \"{%s}\" as expected by path \"%s\".", [element_name, path_key])
-	}
-
-	asymmetry_results := unused_path_param_results | undefined_path_param_results
 }
