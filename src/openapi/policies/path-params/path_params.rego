@@ -19,29 +19,107 @@ results[lib.format_msg(rego.metadata.rule(), path, message)] {
 }
 
 get_all_path_obj_results(paths) := path_obj_results {
-	path_obj := paths[path_key]
+	p_results := {p_result |
+		path_obj := paths[path_key]
 
-	r1 := policy_lib.get_duplicate_var_name_in_path_results(path_key)
-	r2 = get_all_path_parameter_results(path_obj, path_key)
+		r1 := policy_lib.get_duplicate_var_name_in_path_results(path_key)
+		r2 = get_all_path_parameter_results(path_obj, path_key)
 
-	path_obj_results := r1 | r2
+		p_result := r1 | r2
+	}
+	path_obj_results := union(p_results)
 }
 
 get_all_path_parameter_results(path_obj, path_key) := path_parameter_results {
 	not path_obj.parameters
-	path_parameter_results := set()
+	top_params := set()
+	path_parameter_results := get_all_operation_results(path_obj, path_key, top_params)
 }
 
 get_all_path_parameter_results(path_obj, path_key) := path_parameter_results {
 	not is_array(path_obj.parameters)
-	path_parameter_results := set()
+	top_params := set()
+	path_parameter_results := get_all_operation_results(path_obj, path_key, top_params)
 }
 
 get_all_path_parameter_results(path_obj, path_key) := path_parameter_results {
 	parameters := path_obj.parameters
+	path_prefix = ["paths", path_key]
 
-	r1 := policy_lib.get_path_param_missing_required_results(parameters, path_key)
-	r2 := policy_lib.get_duplicate_path_param_definition_results(parameters, path_key)
+	r1 := policy_lib.get_path_param_missing_required_results(parameters, path_prefix)
+	r2 := policy_lib.get_duplicate_path_param_definition_results(parameters, path_prefix)
 
-	path_parameter_results := r1 | r2
+	top_params := policy_lib.get_named_path_params_unique_required(parameters, path_prefix)
+	r3 := get_all_operation_results(path_obj, path_key, top_params)
+
+	path_parameter_results := (r1 | r2) | r3
+}
+
+get_operation_results(operation, method, path_key, top_params) := operation_results {
+	not lib.is_method_valid(method)
+	operation_results := set()
+}
+
+get_operation_results(operation, method, path_key, top_params) := operation_results {
+	lib.is_method_valid(method)
+	path := ["paths", path_key, method]
+
+	[r1, inner_params] := get_all_operation_parameter_results(operation, path)
+	defined_params := top_params | inner_params
+	r2 := get_param_asymmetry_results(defined_params, path_key, path)
+
+	operation_results := r1 | r2
+}
+
+get_all_operation_results(path_obj, path_key, top_params) := operation_results {
+	all_op_results := {op_result |
+		operation := path_obj[method]
+		op_result := get_operation_results(operation, method, path_key, top_params)
+	}
+	operation_results := union(all_op_results)
+}
+
+get_all_operation_parameter_results(operation, path) := [operation_parameter_results, inner_params] {
+	not operation.parameters
+	operation_parameter_results := set()
+	inner_params := set()
+}
+
+get_all_operation_parameter_results(operation, path) := [operation_parameter_results, inner_params] {
+	op_params := operation.parameters
+	inner_params := policy_lib.get_named_path_params_unique_required(op_params, path)
+
+	r1 := policy_lib.get_path_param_missing_required_results(op_params, path)
+	r2 := policy_lib.get_duplicate_path_param_definition_results(op_params, path)
+	operation_parameter_results := r1 | r2
+}
+
+get_param_asymmetry_results(defined_params, path_key, path) := asymmetry_results {
+	path_elements := {match |
+		all_matches := regex.find_n(policy_lib.path_regex, path_key, -1)
+		m := all_matches[_]
+		match := regex.replace(m, "[{}?*;]", "")
+	}
+
+	unused_path_param_results := {[p, m] |
+		defined_params[param]
+		not path_elements[param]
+
+		p := param[1]
+		m := sprintf("Parameter \"%s\" must be used in path \"%s\".", [param[0].name, path_key])
+	}
+
+	undefined_path_param_results := {[p, m] |
+		defined_names := {name |
+			name := defined_params[_].name
+		}
+
+		path_elements[element_name]
+		not defined_names[element_name]
+
+		p := path
+		m := sprintf("Operation must define parameter \"{%s}\" as expected by path \"%s\".", [element_name, path_key])
+	}
+
+	asymmetry_results := unused_path_param_results | undefined_path_param_results
 }

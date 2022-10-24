@@ -1,7 +1,7 @@
 package openapi.policies["path-params"].lib
 
-get_duplicate_path_param_definition_results(parameters, path_key) := {[path, message] |
-	path_params := get_named_path_params(parameters)
+get_duplicate_path_param_definition_results(parameters, path_prefix) := {[path, message] |
+	path_params := get_named_path_params(parameters, path_prefix)
 
 	dupes := {name: val |
 		[param, _] := path_params[_]
@@ -15,8 +15,7 @@ get_duplicate_path_param_definition_results(parameters, path_key) := {[path, mes
 	}
 
 	dupes[n] = dupe_indexes
-	dupe_indexes[i]
+	dupe_indexes[path]
 
-	path := ["paths", path_key, "parameters", sprintf("%d", [i])]
 	message := sprintf("Path parameter \"%s\" must not be defined multiple times.", [n])
 }
