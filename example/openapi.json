@@ -6,7 +6,8 @@
     "description": "Echo Service",
     "license": {
       "name": "MIT"
-    }
+    },
+    "contact": {}
   },
   "servers": [
     {
@@ -15,7 +16,7 @@
   ],
   "tags": [{ "name": "users" }],
   "paths": {
-    "/user": {
+    "/user/{userId}": {
       "post": {
         "operationId": "createUser",
         "responses": {

@@ -9,14 +9,23 @@ escape(s) := t {
 	t := replace(s, "/", "~1")
 }
 
-format(meta, path) := {
-	"code": meta.title,
-	"path": path,
-	"message": meta.custom.message,
+format(meta, path) := result {
+	result = object.union(
+		{
+			"code": meta.title,
+			"path": path,
+		},
+		meta.custom,
+	)
 }
 
-format_msg(meta, path, message) := {
-	"code": meta.title,
-	"path": path,
-	"message": message,
+format_msg(meta, path, message) := result {
+	result = object.union(
+		meta.custom,
+		{
+			"code": meta.title,
+			"path": path,
+			"message": message,
+		},
+	)
 }
