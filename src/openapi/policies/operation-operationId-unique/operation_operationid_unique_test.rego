@@ -1,13 +1,13 @@
 package openapi.policies["operation-operationId-unique"]
 
 test_duplicate_operationid_fails {
-	key := {
+	result := {
 		"code": "operation-operationId-unique",
 		"path": ["paths", "/users", "get", "operationId"],
 		"message": "operationId must be unique",
 		"severity": "error",
 	}
-	results[key] with input as {
+	results[result] with input as {
 		"tags": [],
 		"paths": {"/users": {
 			"get": {"operationId": "getUsers"},

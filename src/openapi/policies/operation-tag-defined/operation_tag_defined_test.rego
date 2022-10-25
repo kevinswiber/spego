@@ -1,12 +1,12 @@
 package openapi.policies["operation-tag-defined"]
 
 test_missing_global_tag_fails {
-	key := {
+	result := {
 		"code": "operation-tag-defined",
 		"path": ["paths", "/users", "get", "tags", "0"],
 		"message": "Operation tags must be defined in global tags.",
 	}
-	results[key] with input as {
+	results[result] with input as {
 		"tags": [],
 		"paths": {"/users": {"get": {"tags": ["user"]}}},
 	}

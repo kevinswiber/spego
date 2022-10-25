@@ -3,33 +3,36 @@ package openapi.policies["path-params"]
 test_duplicate_path_patterns_in_operation_fails {
 	mock_input := {"paths": {"/users/{userId}": {"get": {}}, "/users/{pathId}": {"get": {}}}}
 
-	key1 := {
+	result1 := {
 		"code": "path-params",
 		"path": ["paths", "/users/{userId}"],
 		"message": "Paths \"/users/{pathId}\" and \"/users/{userId}\" must not be equivalent.",
 		"severity": "error",
 	}
-	results[key1] with input as mock_input
 
-	key2 := {
+	result2 := {
 		"code": "path-params",
 		"path": ["paths", "/users/{pathId}"],
 		"message": "Paths \"/users/{userId}\" and \"/users/{pathId}\" must not be equivalent.",
 		"severity": "error",
 	}
-	results[key2] with input as mock_input
+
+	res := results with input as mock_input
+
+	res[result1]
+	res[result2]
 }
 
 test_duplicate_path_vars_in_pattern_fails {
 	mock_input := {"paths": {"/users/{userId}/{userId}": {"get": {}}}}
 
-	key := {
+	result := {
 		"code": "path-params",
 		"path": ["paths", "/users/{userId}/{userId}"],
 		"message": "Path \"/users/{userId}/{userId}\" must not use parameter \"{userId}\" multiple times.",
 		"severity": "error",
 	}
-	results[key] with input as mock_input
+	results[result] with input as mock_input
 }
 
 test_path_parameter_is_not_required_fails {
@@ -38,13 +41,13 @@ test_path_parameter_is_not_required_fails {
 		"in": "path",
 	}]}}}
 
-	key := {
+	result := {
 		"code": "path-params",
 		"path": ["paths", "/users/{userId}", "parameters", "0"],
 		"message": "Path parameter \"userId\" must have \"required\" property that is set to \"true\".",
 		"severity": "error",
 	}
-	results[key] with input as mock_input
+	results[result] with input as mock_input
 }
 
 test_path_parameter_duplicate_name_fails {
@@ -61,21 +64,24 @@ test_path_parameter_duplicate_name_fails {
 		},
 	]}}}
 
-	key1 := {
+	result1 := {
 		"code": "path-params",
 		"path": ["paths", "/users/{userId}", "parameters", "1"],
 		"message": "Path parameter \"userId\" must not be defined multiple times.",
 		"severity": "error",
 	}
-	results[key1] with input as mock_input
 
-	key2 := {
+	result2 := {
 		"code": "path-params",
 		"path": ["paths", "/users/{userId}", "parameters", "0"],
 		"message": "Path parameter \"userId\" must not be defined multiple times.",
 		"severity": "error",
 	}
-	results[key2] with input as mock_input
+
+	res := results with input as mock_input
+
+	res[result1]
+	res[result2]
 }
 
 test_path_parameter_in_operation_is_not_required_fails {
@@ -84,13 +90,13 @@ test_path_parameter_in_operation_is_not_required_fails {
 		"in": "path",
 	}]}}}}
 
-	key := {
+	result := {
 		"code": "path-params",
 		"path": ["paths", "/users/{userId}", "get", "parameters", "0"],
 		"message": "Path parameter \"userId\" must have \"required\" property that is set to \"true\".",
 		"severity": "error",
 	}
-	results[key] with input as mock_input
+	results[result] with input as mock_input
 }
 
 test_path_parameter_in_operation_duplicate_name_fails {
@@ -107,21 +113,24 @@ test_path_parameter_in_operation_duplicate_name_fails {
 		},
 	]}}}}
 
-	key1 := {
+	result1 := {
 		"code": "path-params",
 		"path": ["paths", "/users/{userId}", "get", "parameters", "1"],
 		"message": "Path parameter \"userId\" must not be defined multiple times.",
 		"severity": "error",
 	}
-	results[key1] with input as mock_input
 
-	key2 := {
+	result2 := {
 		"code": "path-params",
 		"path": ["paths", "/users/{userId}", "get", "parameters", "0"],
 		"message": "Path parameter \"userId\" must not be defined multiple times.",
 		"severity": "error",
 	}
-	results[key2] with input as mock_input
+
+	res := results with input as mock_input
+
+	res[result1]
+	res[result2]
 }
 
 test_defined_parameter_not_in_path_fails {
@@ -131,25 +140,25 @@ test_defined_parameter_not_in_path_fails {
 		"in": "path",
 	}]}}}}
 
-	key := {
+	result := {
 		"code": "path-params",
 		"path": ["paths", "/users", "get", "parameters", "0"],
 		"message": "Parameter \"userId\" must be used in path \"/users\".",
 		"severity": "error",
 	}
-	results[key] with input as mock_input
+	results[result] with input as mock_input
 }
 
 test_undefined_path_parameter_fails {
 	mock_input := {"paths": {"/users/{userId}": {"get": {}}}}
 
-	key := {
+	result := {
 		"code": "path-params",
 		"path": ["paths", "/users/{userId}", "get"],
 		"message": "Operation must define parameter \"{userId}\" as expected by path \"/users/{userId}\".",
 		"severity": "error",
 	}
-	results[key] with input as mock_input
+	results[result] with input as mock_input
 }
 
 test_path_parameter_is_required_succeeds {

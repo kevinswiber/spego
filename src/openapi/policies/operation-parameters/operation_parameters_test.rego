@@ -15,19 +15,22 @@ test_duplicate_parameters_fails {
 		]}}},
 	}
 
-	key := {
+	result1 := {
 		"code": "operation-parameters",
 		"path": ["paths", "/users", "get", "parameters", "0"],
 		"message": "A parameter in this operation already exposes the same combination of \"name\" and \"in\" values.",
 	}
-	results[key] with input as mock_input
 
-	key2 := {
+	result2 := {
 		"code": "operation-parameters",
 		"path": ["paths", "/users", "get", "parameters", "1"],
 		"message": "A parameter in this operation already exposes the same combination of \"name\" and \"in\" values.",
 	}
-	results[key2] with input as mock_input
+
+	res := results with input as mock_input
+
+	res[result1]
+	res[result2]
 }
 
 test_both_body_and_formdata_params_fails {
@@ -45,12 +48,12 @@ test_both_body_and_formdata_params_fails {
 		]}}},
 	}
 
-	key := {
+	result := {
 		"code": "operation-parameters",
 		"path": ["paths", "/users", "get", "parameters"],
 		"message": "Operation must not have both \"in:body\" and \"in:formData\" parameters.",
 	}
-	results[key] with input as mock_input
+	results[result] with input as mock_input
 }
 
 test_multiple_body_params_fails {
@@ -68,20 +71,22 @@ test_multiple_body_params_fails {
 		]}}},
 	}
 
-	key := {
+	result1 := {
 		"code": "operation-parameters",
 		"path": ["paths", "/users", "get", "parameters", "0"],
 		"message": "Operation must not have more than a single instance of the \"in:body\" parameter.",
 	}
-	results[key] with input as mock_input
 
-	key2 := {
+	result2 := {
 		"code": "operation-parameters",
 		"path": ["paths", "/users", "get", "parameters", "1"],
 		"message": "Operation must not have more than a single instance of the \"in:body\" parameter.",
 	}
 
-	results[key2] with input as mock_input
+	res := results with input as mock_input
+
+	res[result1]
+	res[result2]
 }
 
 test_unique_parameters_succeeds {
