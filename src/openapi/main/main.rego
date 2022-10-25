@@ -51,6 +51,7 @@ recommended := [
 	"operation-description",
 	"operation-operationId",
 	"operation-operationId-valid-in-url",
+	"operation-tags",
 ]
 
 policy_refs := data.openapi.ruleset
