@@ -10,5 +10,5 @@ import data.openapi.lib
 results[lib.format(rego.metadata.rule(), path)] {
 	path := ["info", "contact"]
 	contact := object.get(input, path, true)
-	not is_object(contact)
+	is_object(contact) == false
 }
