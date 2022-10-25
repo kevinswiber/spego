@@ -4,6 +4,7 @@ import data.openapi.lib
 
 # METADATA
 # title: info-license
+# description: Info object must have "license" object.
 # license: Info object must have "license" object.
 # custom:
 #   message: Info object must have "license" object.

@@ -4,13 +4,13 @@ services:
     type: oci
     credentials:
       bearer:
-        schema: "Bearer"
-        token: "${PKG_PAT}"
+        schema: 'Bearer'
+        token: '${PKG_PAT}'
 
 bundles:
   openapi:
     service: github-registry
-    resource: ghcr.io/kevinswiber/openapi-opa:latest
+    resource: ghcr.io/kevinswiber/spego:latest
     persist: true
     polling:
       min_delay_seconds: 30

@@ -4,6 +4,7 @@ import data.openapi.lib
 
 # METADATA
 # title: license-url
+# description: License object must include "url".
 # url: License object must include "url".
 # custom:
 #   message: License object must include "url".
