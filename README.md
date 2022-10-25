@@ -6,9 +6,33 @@ A set of policies for Open Policy Agent to validate OpenAPI definitions.
 - Built-in support for [Conftest](https://conftest.dev)
 - Based on the rules used by [Spectral](https://github.com/stoplightio/spectral).
 
+## Usage
+
+Spego may be used as an Open Policy Agent (OPA) bundle. First, be sure to follow the [instructions to install OPA](https://www.openpolicyagent.org/docs/latest/#1-download-opa).
+
+```sh
+git clone git@github.com:kevinswiber/spego.git
+opa eval \
+  --bundle ./spego/src \
+  --format pretty \
+  --input ./spego/example/inputs/openapi.json \
+  "data.openapi.main.results"
+```
+
+Spego can also be used with Conftest. First, be sure to follow the [instructions to download Conftest](https://www.conftest.dev/install/).
+
+```sh
+conftest pull git::https://github.com/kevinswiber/spego//src
+conftest test -n "openapi.main" ./openapi.json
+```
+
+Note: Policy execution can be configured by adding a data file named `data.openapi.ruleset` as defined in the [Configuration](#configuration) section.
+
 ## Configuration
 
 - Supports a subset of Spectral custom rulesets, including [Changing Rule Severity](https://meta.stoplight.io/docs/spectral/e5b9616d6d50c-custom-rulesets#changing-rule-severity), [Recommended or All](https://meta.stoplight.io/docs/spectral/e5b9616d6d50c-custom-rulesets#recommended-or-all), [Disabling Rules](https://meta.stoplight.io/docs/spectral/e5b9616d6d50c-custom-rulesets#disabling-rules), and [Enabling Rules](https://meta.stoplight.io/docs/spectral/e5b9616d6d50c-custom-rulesets#enabling-rules).
+- Included as data in Open Policy Agent, under `data.openapi.ruleset`.
+- Configuration is optional. The recommended policies are executed by default.
 
 ### Example configuration
 
