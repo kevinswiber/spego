@@ -10,8 +10,8 @@ escape(s) := t {
 }
 
 format(meta, path) := result {
-	result = object.union(
-		get_custom_or_default(meta),
+	result := merge_custom(
+		meta,
 		{
 			"code": meta.title,
 			"path": path,
@@ -20,20 +20,18 @@ format(meta, path) := result {
 }
 
 format_msg(meta, path, message) := result {
-	result = object.union(
-		get_custom_or_default(meta),
-		{
-			"code": meta.title,
-			"path": path,
-			"message": message,
-		},
-	)
+	result := merge_custom(meta, {
+		"code": meta.title,
+		"path": path,
+		"message": message,
+	})
 }
 
-get_custom_or_default(meta) := custom {
-	custom := meta.custom
+merge_custom(meta, obj) := merged {
+	not meta.custom
+	merged := obj
 }
 
-get_custom_or_default(meta) := custom {
-	custom := {}
+merge_custom(meta, obj) := merged {
+	merged := object.union(meta.custom, obj)
 }
