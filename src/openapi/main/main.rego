@@ -52,6 +52,7 @@ recommended := [
 	"operation-operationId",
 	"operation-operationId-valid-in-url",
 	"operation-tags",
+	"path-declarations-must-exist",
 ]
 
 policy_refs := data.openapi.ruleset
