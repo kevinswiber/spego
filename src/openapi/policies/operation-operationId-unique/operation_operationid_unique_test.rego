@@ -5,6 +5,7 @@ test_duplicate_operationid_fails {
 		"code": "operation-operationId-unique",
 		"path": ["paths", "/users", "get", "operationId"],
 		"message": "operationId must be unique",
+		"severity": "error",
 	}
 	results[key] with input as {
 		"tags": [],

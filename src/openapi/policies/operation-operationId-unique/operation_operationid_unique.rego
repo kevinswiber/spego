@@ -11,6 +11,7 @@ operation_ids := [operationId |
 # description: Every operation must have unique "operationId".
 # custom:
 #   message: operationId must be unique
+#   severity: error
 results[lib.format(rego.metadata.rule(), path)] {
 	op := input.paths[p][m]
 	lib.is_method_valid(m)
