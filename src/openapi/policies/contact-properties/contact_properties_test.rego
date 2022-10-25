@@ -40,9 +40,11 @@ test_contact_missing_url_fails {
 }
 
 test_contact_with_all_fields_succeeds {
-	count(results) == 0 with input as {"info": {"contact": {
+	a := results with input as {"info": {"contact": {
 		"name": "Example",
 		"email": "web@example.org",
 		"url": "https://example.com",
 	}}}
+
+	count(a) == 0
 }

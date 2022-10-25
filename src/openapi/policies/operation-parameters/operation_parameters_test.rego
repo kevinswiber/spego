@@ -85,7 +85,7 @@ test_multiple_body_params_fails {
 }
 
 test_unique_parameters_succeeds {
-	count(results) == 0 with input as {
+	a := results with input as {
 		"tags": [],
 		"paths": {"/users": {"get": {"parameters": [
 			{
@@ -98,10 +98,12 @@ test_unique_parameters_succeeds {
 			},
 		]}}},
 	}
+
+	count(a) == 0
 }
 
 test_single_body_or_formdata_param_succeeds {
-	count(results) == 0 with input as {
+	a := results with input as {
 		"tags": [],
 		"paths": {"/users": {"get": {"parameters": [
 			{
@@ -115,7 +117,9 @@ test_single_body_or_formdata_param_succeeds {
 		]}}},
 	}
 
-	count(results) == 0 with input as {
+	count(a) == 0
+
+	b := results with input as {
 		"tags": [],
 		"paths": {"/users": {"get": {"parameters": [
 			{
@@ -128,10 +132,12 @@ test_single_body_or_formdata_param_succeeds {
 			},
 		]}}},
 	}
+
+	count(b) == 0
 }
 
 test_single_body_param_succeeds {
-	count(results) == 0 with input as {
+	a := results with input as {
 		"tags": [],
 		"paths": {"/users": {"get": {"parameters": [
 			{
@@ -144,4 +150,6 @@ test_single_body_param_succeeds {
 			},
 		]}}},
 	}
+
+	count(a) == 0
 }

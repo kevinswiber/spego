@@ -17,11 +17,13 @@ test_duplicate_operationid_fails {
 }
 
 test_unique_operationid_succeeds {
-	count(results) == 0 with input as {
+	a := results with input as {
 		"tags": [],
 		"paths": {"/users": {
 			"get": {"operationId": "getUsers"},
 			"post": {"operationId": "postUsers"},
 		}},
 	}
+
+	count(a) == 0
 }

@@ -14,10 +14,7 @@ test_no_success_response_code_fails {
 test_success_response_code_succeeds {
 	mock_input := {"paths": {"/users": {"get": {"responses": {"200": {}}}}}}
 
-	key := {
-		"code": "operation-success-response",
-		"path": ["paths", "/users", "get", "responses"],
-		"message": "Operation must define at least a single 2xx or 3xx response.",
-	}
-	count(results) == 0 with input as mock_input
+	a := results with input as mock_input
+
+	count(a) == 0
 }

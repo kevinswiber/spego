@@ -13,8 +13,10 @@ test_missing_global_tag_fails {
 }
 
 test_present_global_tag_succeeds {
-	count(results) == 0 with input as {
+	a := results with input as {
 		"tags": [{"name": "user"}],
 		"paths": {"/users": {"get": {"tags": ["user"]}}},
 	}
+
+	count(a) == 0
 }

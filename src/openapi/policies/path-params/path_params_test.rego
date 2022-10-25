@@ -159,5 +159,7 @@ test_path_parameter_is_required_succeeds {
 		"required": true,
 	}]}}}
 
-	count(results) == 0 with input as mock_input
+	a := results with input as mock_input
+
+	count(a) == 0
 }

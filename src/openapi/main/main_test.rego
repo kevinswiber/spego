@@ -1,8 +1,8 @@
 package openapi.main
 
 test_all_policies_execute_by_default {
-	results_count := count(results) with input as {}
-	results_count == count(data.openapi.policies)
+	a := results with input as {}
+	count(a) == count(data.openapi.policies)
 }
 
 test_limited_policies_with_ruleset {
@@ -10,9 +10,8 @@ test_limited_policies_with_ruleset {
 		"operation-success-response",
 		"operation-tag-defined",
 	]
-
-	results_count := count(results) with input as {} with data.openapi.ruleset as ruleset
-	results_count == count(ruleset)
+	a := results with input as {} with data.openapi.ruleset as ruleset
+	count(a) == count(ruleset)
 }
 
 test_results_includes_both_successes_and_problems {
