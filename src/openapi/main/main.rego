@@ -54,6 +54,7 @@ recommended := [
 	"operation-tags",
 	"path-declarations-must-exist",
 	"path-keys-no-trailing-slash",
+	"path-not-include-query",
 ]
 
 policy_refs := data.openapi.ruleset
