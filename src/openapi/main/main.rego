@@ -50,6 +50,7 @@ recommended := [
 	"openapi-tags-uniqueness",
 	"operation-description",
 	"operation-operationId",
+	"operation-operationId-valid-in-url",
 ]
 
 policy_refs := data.openapi.ruleset
