@@ -49,6 +49,7 @@ recommended := [
 	"no-script-tags-in-markdown",
 	"openapi-tags-uniqueness",
 	"operation-description",
+	"operation-operationId",
 ]
 
 policy_refs := data.openapi.ruleset
