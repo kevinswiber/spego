@@ -36,6 +36,20 @@ policy_refs := rs {
 	}
 }
 
+recommended := [
+	"operation-success-response",
+	"operation-operationId-unique",
+	"operation-parameters",
+	"operation-tag-defined",
+	"path-params",
+	"duplicated-entry-in-enum",
+	"info-contact",
+	"info-description",
+	"no-eval-in-markdown",
+	"no-script-tags-in-markdown",
+	"openapi-tags-uniqueness",
+]
+
 policy_refs := data.openapi.ruleset
 
 # METADATA
