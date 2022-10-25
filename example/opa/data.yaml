@@ -1,0 +1,6 @@
+---
+openapi:
+  ruleset:
+    extends: [spego:oas]
+    rules:
+      operation-success-response: warn

@@ -1,0 +1,6 @@
+openapi:
+  ruleset:
+    extends: [['spego:oas', 'recommended']]
+    rules:
+      operation-success-response: error
+      openapi-tags: true

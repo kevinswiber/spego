@@ -5,10 +5,6 @@ is_method_valid(method) {
 	methods[_] == method
 }
 
-escape(s) := t {
-	t := replace(s, "/", "~1")
-}
-
 format(meta, path) := result {
 	result := merge_custom(
 		meta,

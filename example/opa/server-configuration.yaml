@@ -1,0 +1,17 @@
+services:
+  github-registry:
+    url: https://ghcr.io
+    type: oci
+    credentials:
+      bearer:
+        schema: "Bearer"
+        token: "${PKG_PAT}"
+
+bundles:
+  openapi:
+    service: github-registry
+    resource: ghcr.io/kevinswiber/openapi-opa:latest
+    persist: true
+    polling:
+      min_delay_seconds: 30
+      max_delay_seconds: 120
