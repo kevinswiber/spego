@@ -8,12 +8,15 @@ import data.openapi.lib
 # custom:
 #   message: Markdown descriptions must not have "<script>" tags.
 results[lib.format(rego.metadata.rule(), path)] {
-	# TODO: Combine these operations
-	titles := {[p1, e] | some p, v, e; [p, v] = walk(input); e = v.title; p1 = array.concat(p, ["title"])}
-	descriptions := {[p1, e] | some p, v, e; [p, v] = walk(input); e = v.description; p1 = array.concat(p, ["description"])}
+	valid_props := {"title", "description"}
+	titles_and_descriptions := {[md_path, md_val] |
+		some key
+		[p, v] := walk(input)
+		valid_props[key]
+		md_val := v[key]
+		md_path = array.concat(p, [key])
+	}
 
-	markdowns := titles | descriptions
-
-	[path, e] = markdowns[_]
+	[path, e] = titles_and_descriptions[_]
 	contains(lower(e), "<script")
 }

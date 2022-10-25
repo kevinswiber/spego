@@ -20,6 +20,28 @@ test_script_tag_in_markdown_description_fails {
 	results[result] with input as {"info": {"description": "hi <script>alert('hi')</script> there"}}
 }
 
+test_script_tag_in_markdown_title_and_description_fails {
+	mock_input := {"info": {
+		"title": "hi <script>alert('hi')</script> there",
+		"description": "hi <script>alert('hi')</script> there",
+	}}
+	result1 := {
+		"code": "no-script-tags-in-markdown",
+		"path": ["info", "title"],
+		"message": "Markdown descriptions must not have \"<script>\" tags.",
+	}
+
+	results[result1] with input as mock_input
+
+	result2 := {
+		"code": "no-script-tags-in-markdown",
+		"path": ["info", "description"],
+		"message": "Markdown descriptions must not have \"<script>\" tags.",
+	}
+
+	results[result2] with input as mock_input
+}
+
 test_no_script_tag_in_markdown_title_succeeds {
 	a := results with input as {"info": {"title": "hi"}}
 	count(a) == 0
