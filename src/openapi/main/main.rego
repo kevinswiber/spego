@@ -44,16 +44,16 @@ policy_refs := data.openapi.ruleset
 problems[msg] {
 	policy_ref := policy_refs[_]
 	code := resolve_code(policy_ref)
-	result := data.openapi.policies[code].results[key]
-	key.code == code
+	data.openapi.policies[code].results[result]
+	result.code == code
 
 	severity_default := resolve_result_severity(result, "warn")
 	severity := resolve_severity(policy_ref, severity_default)
 
 	msg := {
-		"code": key.code,
-		"message": key.message,
-		"path": key.path,
+		"code": result.code,
+		"message": result.message,
+		"path": result.path,
 		"severity": severity,
 	}
 }
@@ -85,12 +85,12 @@ results[msg] {
 get_msg(code, p_codes) := msgs {
 	p_codes[code]
 	msgs := {msg |
-		problems[key].code == code
+		problems[result].code == code
 		msg := {
 			"code": code,
-			"message": key.message,
-			"path": key.path,
-			"severity": key.severity,
+			"message": result.message,
+			"path": result.path,
+			"severity": result.severity,
 			"status": "failure",
 		}
 	}
@@ -105,7 +105,7 @@ get_msg(code, p_codes) := {msg} {
 }
 
 warn[msg] {
-	result := problems[_]
+	problems[result]
 	result.severity == "warn"
 	escaped := [segment | s := result.path[_]; segment := lib.escape(s)]
 	pointer := sprintf("#%s", [concat("/", escaped)])
@@ -120,7 +120,7 @@ warn[msg] {
 }
 
 violation[msg] {
-	result := problems[_]
+	problems[result]
 	result.severity == "error"
 	escaped := [segment | s := result.path[_]; segment := lib.escape(s)]
 	pointer := sprintf("#%s", [concat("/", escaped)])
