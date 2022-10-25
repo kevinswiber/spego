@@ -7,7 +7,6 @@ test_description_missing_fails {
 		"message": "Info \"description\" must be present and non-empty string.",
 	}
 
-	a := results with input as {"info": {}}
 	results[result] with input as {"info": {}}
 }
 
