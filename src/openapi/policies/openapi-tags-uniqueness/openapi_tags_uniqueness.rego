@@ -1,7 +1,7 @@
 package openapi.policies["openapi-tags-uniqueness"]
 
 import data.openapi.lib
-import future.keywords.every
+import future.keywords.in
 
 # METADATA
 # title: openapi-tags-uniqueness
