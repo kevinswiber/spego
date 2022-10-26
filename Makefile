@@ -8,5 +8,7 @@ push:
 	oras push ghcr.io/kevinswiber/spego:latest --config manifest-config.json:application/vnd.oci.image.config.v1+json bundle.tar.gz:application/vnd.oci.image.layer.v1.tar+gzip
 docs:
 	opa inspect -a ./src > docs/policies.txt
+clean:
+	rm bundle.tar.gz
 
-.PHONY: check test bundle push docs
+.PHONY: check test bundle push docs clean
