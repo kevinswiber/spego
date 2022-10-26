@@ -1,5 +1,7 @@
 package openapi.policies["path-params"].lib
 
+import future.keywords.in
+
 path_collision_results(paths_obj) := {[p, m] |
 	normalized_paths := [normalized |
 		paths_obj[path]
@@ -16,10 +18,7 @@ path_collision_results(paths_obj) := {[p, m] |
 		pair := [i1, i2]
 	]
 
-	pair := dupes[_]
-
-	i1 := pair[0]
-	i2 := pair[1]
+	some [i1, i2] in dupes
 
 	m := sprintf("Paths \"%s\" and \"%s\" must not be equivalent.", [paths[i1], paths[i2]])
 	p := ["paths", paths[i2]]
