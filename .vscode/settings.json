@@ -1,0 +1,5 @@
+{
+  "opa.checkOnSave": true,
+  "opa.strictMode": true,
+  "opa.roots": ["${workspaceFolder}/src"]
+}
