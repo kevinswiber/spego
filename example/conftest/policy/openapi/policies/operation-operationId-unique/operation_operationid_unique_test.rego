@@ -1,0 +1,4 @@
+package openapi.policies["operation-operationId-unique"]
+
+test_duplicate_operationid_fails = true { assign(result, {"code": "operation-operationId-unique", "message": "operationId must be unique", "path": ["paths", "/users", "get", "operationId"], "severity": "error"}); results[result] with input as {"paths": {"/users": {"get": {"operationId": "getUsers"}, "post": {"operationId": "getUsers"}}}, "tags": []} }
+test_unique_operationid_succeeds = true { assign(a, results) with input as {"paths": {"/users": {"get": {"operationId": "getUsers"}, "post": {"operationId": "postUsers"}}}, "tags": []}; equal(count(a), 0) }

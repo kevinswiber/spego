@@ -1,0 +1,3 @@
+package openapi.policies["duplicated-entry-in-enum"]
+
+test_duplicate_entry_in_enum_fails = true { assign(result1, {"code": "duplicated-entry-in-enum", "message": "Enum has duplicate value, \"ALPHA\".", "path": ["components", "schemas", "a", "properties", "b", "items", "enum", "0"]}); assign(result2, {"code": "duplicated-entry-in-enum", "message": "Enum has duplicate value, \"ALPHA\".", "path": ["components", "schemas", "a", "properties", "b", "items", "enum", "2"]}); assign(res, results) with input as {"components": {"schemas": {"a": {"properties": {"b": {"items": {"enum": ["ALPHA", "BETA", "ALPHA"], "type": "string"}, "type": "array"}}, "type": "object"}}}}; res[result1]; res[result2] }

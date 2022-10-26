@@ -1,0 +1,17 @@
+package openapi.policies["path-params"]
+
+import data.openapi.lib
+import data.openapi.policies["path-params"].lib as policy_lib
+
+# METADATA
+# {"scope":"rule","title":"path-params","description":"Path parameters must be defined and valid.","custom":{"severity":"error"}}
+results[lib.format_msg(rego.metadata.rule(), path, message)] { assign(paths, input.paths); assign(r1, policy_lib.path_collision_results(paths)); assign(r2, all_path_obj_results(paths)); assign(all_results, or(r1, r2)); all_results[[path, message]] }
+all_path_obj_results(paths) := path_obj_results { assign(p_results, {p_result | assign(path_obj, paths[path_key]); assign(r1, policy_lib.duplicate_var_name_in_path_results(path_key)); r2 = all_path_parameter_results(path_obj, path_key); assign(p_result, or(r1, r2))}); assign(path_obj_results, union(p_results)) }
+all_path_parameter_results(path_obj, path_key) := path_parameter_results { not path_obj.parameters; assign(top_params, set()); assign(path_parameter_results, all_operation_results(path_obj, path_key, top_params)) }
+all_path_parameter_results(path_obj, path_key) := path_parameter_results { not is_array(path_obj.parameters); assign(top_params, set()); assign(path_parameter_results, all_operation_results(path_obj, path_key, top_params)) }
+all_path_parameter_results(path_obj, path_key) := path_parameter_results { assign(parameters, path_obj.parameters); path_prefix = ["paths", path_key]; assign(r1, policy_lib.path_param_missing_required_results(parameters, path_prefix)); assign(r2, policy_lib.duplicate_path_param_definition_results(parameters, path_prefix)); assign(top_params, policy_lib.named_path_params_unique_required(parameters, path_prefix)); assign(r3, all_operation_results(path_obj, path_key, top_params)); assign(path_parameter_results, or(or(r1, r2), r3)) }
+all_operation_results(path_obj, path_key, top_params) := op_results { assign(all_op_results, {op_result | assign(operation, path_obj[method]); assign(op_result, operation_results(operation, method, path_key, top_params))}); assign(op_results, union(all_op_results)) }
+operation_results(operation, method, path_key, top_params) := operation_results { not lib.is_method_valid(method); assign(operation_results, set()) }
+operation_results(operation, method, path_key, top_params) := operation_results { lib.is_method_valid(method); assign(path, ["paths", path_key, method]); assign([r1, inner_params], all_operation_parameter_results(operation, path)); assign(defined_params, or(top_params, inner_params)); assign(r2, policy_lib.param_asymmetry_results(defined_params, path_key, path)); assign(operation_results, or(r1, r2)) }
+all_operation_parameter_results(operation, path) := [operation_parameter_results, inner_params] { not operation.parameters; assign(operation_parameter_results, set()); assign(inner_params, set()) }
+all_operation_parameter_results(operation, path) := [operation_parameter_results, inner_params] { assign(op_params, operation.parameters); assign(inner_params, policy_lib.named_path_params_unique_required(op_params, path)); assign(r1, policy_lib.path_param_missing_required_results(op_params, path)); assign(r2, policy_lib.duplicate_path_param_definition_results(op_params, path)); assign(operation_parameter_results, or(r1, r2)) }

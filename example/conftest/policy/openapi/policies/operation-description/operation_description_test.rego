@@ -1,0 +1,5 @@
+package openapi.policies["operation-description"]
+
+test_missing_operation_description_fails = true { assign(result, {"code": "operation-description", "message": "Operation \"description\" must be present and non-empty string.", "path": ["paths", "/example", "get", "description"]}); results[result] with input as {"paths": {"/example": {"get": {}}}} }
+test_empty_operation_description_fails = true { assign(result, {"code": "operation-description", "message": "Operation \"description\" must be present and non-empty string.", "path": ["paths", "/example", "get", "description"]}); results[result] with input as {"paths": {"/example": {"get": {"description": ""}}}} }
+test_non_empty_operation_description_succeeds = true { assign(a, results) with input as {"paths": {"/example": {"get": {"description": "good one"}}}}; equal(count(a), 0) }

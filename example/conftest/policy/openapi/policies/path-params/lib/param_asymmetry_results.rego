@@ -1,0 +1,5 @@
+package openapi.policies["path-params"].lib
+
+import future.keywords.in
+
+param_asymmetry_results(defined_params, path_key, path) := asymmetry_results { assign(path_elements, {match | assign(all_matches, regex.find_n(path_regex, path_key, -1)); some m in all_matches; assign(match, regex.replace(m, "[{}?*;]", ""))}); assign(unused_path_param_results, {[p, m] | defined_params[param]; not path_elements[param]; assign(p, param[1]); assign(m, sprintf("Parameter \"%s\" must be used in path \"%s\".", [param[0].name, path_key]))}); assign(undefined_path_param_results, {[p, m] | assign(defined_names, {name | assign(name, defined_params[_].name)}); path_elements[element_name]; not defined_names[element_name]; assign(p, path); assign(m, sprintf("Operation must define parameter \"{%s}\" as expected by path \"%s\".", [element_name, path_key]))}); assign(asymmetry_results, or(unused_path_param_results, undefined_path_param_results)) }

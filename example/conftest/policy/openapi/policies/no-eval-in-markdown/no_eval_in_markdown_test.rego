@@ -1,0 +1,7 @@
+package openapi.policies["no-eval-in-markdown"]
+
+test_eval_in_markdown_title_fails = true { assign(result, {"code": "no-eval-in-markdown", "message": "Markdown descriptions must not have \"eval(\".", "path": ["info", "title"]}); results[result] with input as {"info": {"title": "hi eval(\"alert('hi')\") there"}} }
+test_eval_in_markdown_description_fails = true { assign(result, {"code": "no-eval-in-markdown", "message": "Markdown descriptions must not have \"eval(\".", "path": ["info", "description"]}); results[result] with input as {"info": {"description": "hi eval(\"alert('hi')\") there"}} }
+test_eval_in_markdown_title_and_description_fails = true { assign(mock_input, {"info": {"description": "hi eval(\"alert('hi')\") there", "title": "hi eval(\"alert('hi')\") there"}}); assign(result1, {"code": "no-eval-in-markdown", "message": "Markdown descriptions must not have \"eval(\".", "path": ["info", "title"]}); assign(result2, {"code": "no-eval-in-markdown", "message": "Markdown descriptions must not have \"eval(\".", "path": ["info", "description"]}); assign(res, results) with input as mock_input; res[result1]; res[result2] }
+test_no_eval_in_markdown_title_succeeds = true { assign(a, results) with input as {"info": {"title": "hi"}}; equal(count(a), 0) }
+test_no_eval_in_markdown_description_succeeds = true { assign(a, results) with input as {"info": {"description": "hi"}}; equal(count(a), 0) }
