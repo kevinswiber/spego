@@ -1,5 +1,7 @@
 check:
 	opa check --strict ./src
+fmt:
+	opa fmt --list --fail ./src
 test:
 	opa test -b ./src
 bundle:
@@ -11,4 +13,4 @@ docs:
 clean:
 	rm bundle.tar.gz
 
-.PHONY: check test bundle push docs clean
+.PHONY: check fmt test bundle push docs clean
