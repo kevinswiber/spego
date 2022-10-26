@@ -51,9 +51,10 @@ get_enabled_ruleset_overrides(ruleset) := policy_refs {
 
 get_enabled_ruleset_overrides(ruleset) := policy_refs {
 	rules := ruleset.rules
+	valid_values := {true, "on"}
 	policy_refs := {ref |
 		v := rules[ref]
-		any([v == true, v == "on"])
+		valid_values[v]
 	}
 }
 
@@ -64,9 +65,10 @@ get_disabled_ruleset_overrides(ruleset) := policy_refs {
 
 get_disabled_ruleset_overrides(ruleset) := policy_refs {
 	rules := ruleset.rules
+	valid_values := {false, "off"}
 	policy_refs := {ref |
 		v := rules[ref]
-		any([v == false, v == "off"])
+		valid_values[v]
 	}
 }
 

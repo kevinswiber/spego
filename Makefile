@@ -1,3 +1,7 @@
+check:
+	opa check --strict ./src
+test:
+	opa test -b ./src
 bundle:
 	tar -czvf bundle.tar.gz -C ./src .
 push:
@@ -5,4 +9,4 @@ push:
 docs:
 	opa inspect -a ./src > docs/policies.txt
 
-.PHONY: bundle push docs
+.PHONY: check test bundle push docs

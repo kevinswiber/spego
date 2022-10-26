@@ -12,8 +12,12 @@ results[lib.format(rego.metadata.rule(), path)] {
 	lib.is_method_valid(m)
 
 	description := object.get(op, "description", true)
+
 	is_not_str := is_string(description) == false
 	is_empty := description == ""
-	any([is_not_str, is_empty])
+
+	checks := {is_not_str, is_empty}
+	checks[true]
+
 	path := ["paths", p, m, "description"]
 }

@@ -36,7 +36,6 @@ successes[msg] {
 results[msg] {
 	ref_codes := {k | policy_ref := policy_refs[_]; k := policy_ref}
 	p_codes := {k | k := problems[_].code}
-	s_codes := {k | k := successes[_].code}
 
 	ref_codes[code]
 	messages := get_msg(code, p_codes)

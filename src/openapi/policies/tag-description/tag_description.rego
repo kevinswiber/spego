@@ -9,7 +9,7 @@ import data.openapi.lib
 #   message: Tag object must have "description".
 results[lib.format(rego.metadata.rule(), path)] {
 	tags := input.tags
-	tag := tags[i]
+	tags[i]
 	not tags.description
 	path := ["tags", sprintf("%d", [i])]
 }

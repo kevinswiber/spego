@@ -13,5 +13,7 @@ results[lib.format(rego.metadata.rule(), path)] {
 
 	is_not_str := is_string(description) == false
 	is_empty := description == ""
-	any([is_not_str, is_empty])
+
+	checks := {is_not_str, is_empty}
+	checks[true]
 }
