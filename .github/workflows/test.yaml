@@ -21,7 +21,7 @@ jobs:
         with:
           args: test --bundle ./src
   build-and-push:
-    depends-on: [test-policies]
+    needs: test-policies
     runs-on: ubuntu-latest
     permissions:
       packages: write
