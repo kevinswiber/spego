@@ -34,6 +34,7 @@ jobs:
         env:
           GITHUB_OWNER: ${{ github.repository_owner }}
           GITHUB_REPO: ${{ github.repository }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo $GITHUB_TOKEN | oras login ghcr.io -u $GITHUB_OWNER --password-stdin
           echo '{}' > manifest-config.json
