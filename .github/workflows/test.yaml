@@ -15,11 +15,11 @@ jobs:
       - name: opa check
         uses: docker://openpolicyagent/opa:0.45.0
         with:
-          args: check --strict ./src
+          args: check --strict --bundle ./src
       - name: opa test
         uses: docker://openpolicyagent/opa:0.45.0
         with:
-          args: test --bundle ./src
+          args: test --bundle ./src --verbose
   build-and-push:
     needs: test-policies
     runs-on: ubuntu-latest
@@ -32,8 +32,8 @@ jobs:
         run: tar -czvf bundle.tar.gz -C ./src .
       - name: oras login and push
         env:
-          GITHUB_OWNER: ${github.repository_owner}
-          GITHUB_REPO: ${github.repository}
+          GITHUB_OWNER: ${{ github.repository_owner }}
+          GITHUB_REPO: ${{ github.repository }}
         run: |
           echo $GITHUB_TOKEN | oras login ghcr.io -u $GITHUB_OWNER --password-stdin
           echo '{}' > manifest-config.json
