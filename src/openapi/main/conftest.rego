@@ -1,5 +1,7 @@
 package openapi.main
 
+import future.keywords.in
+
 escape(s) := t {
 	t := replace(s, "/", "~1")
 }
@@ -10,7 +12,7 @@ escape(s) := t {
 warn[msg] {
 	problems[result]
 	result.severity == "warn"
-	escaped := [segment | s := result.path[_]; segment := escape(s)]
+	escaped := [segment | some s in result.path; segment := escape(s)]
 	pointer := sprintf("%s", [concat("/", escaped)])
 	msg := {
 		"msg": sprintf("%s - %s [%s]", [result.code, result.message, pointer]),
@@ -28,7 +30,7 @@ warn[msg] {
 violation[msg] {
 	problems[result]
 	result.severity == "error"
-	escaped := [segment | s := result.path[_]; segment := escape(s)]
+	escaped := [segment | some s in result.path; segment := escape(s)]
 	pointer := sprintf("%s", [concat("/", escaped)])
 	msg := {
 		"msg": sprintf("%s - %s [%s]", [result.code, result.message, pointer]),

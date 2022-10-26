@@ -1,9 +1,11 @@
 package openapi.policies["path-params"].lib
 
-get_param_asymmetry_results(defined_params, path_key, path) := asymmetry_results {
+import future.keywords.in
+
+param_asymmetry_results(defined_params, path_key, path) := asymmetry_results {
 	path_elements := {match |
 		all_matches := regex.find_n(path_regex, path_key, -1)
-		m := all_matches[_]
+		some m in all_matches
 		match := regex.replace(m, "[{}?*;]", "")
 	}
 

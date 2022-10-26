@@ -11,5 +11,5 @@ test_missing_tag_description_fails {
 }
 
 test_existing_tag_description_succeeds {
-	count(results) == 0 with input as {"tags": {"name": "a", "description": "it's an a"}}
+	count(results) == 0 with input as {"tags": [{"name": "a", "description": "it's an a"}]}
 }

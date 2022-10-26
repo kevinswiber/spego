@@ -11,5 +11,5 @@ import data.openapi.lib
 results[lib.format(rego.metadata.rule(), path)] {
 	path := ["info", "license"]
 	license := object.get(input, path, true)
-	is_object(license) == false
+	not is_object(license)
 }

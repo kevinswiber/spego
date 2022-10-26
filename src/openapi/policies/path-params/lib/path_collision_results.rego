@@ -1,6 +1,6 @@
 package openapi.policies["path-params"].lib
 
-get_path_collision_results(paths_obj) := {[p, m] |
+path_collision_results(paths_obj) := {[p, m] |
 	normalized_paths := [normalized |
 		paths_obj[path]
 		normalized := regex.replace(path, path_regex, "%")

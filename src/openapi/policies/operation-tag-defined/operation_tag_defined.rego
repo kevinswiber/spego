@@ -9,8 +9,9 @@ import future.keywords.in
 # custom:
 #   message: Operation tags must be defined in global tags.
 results[lib.format(rego.metadata.rule(), path)] {
+	tags := input.tags
 	global_tags := [tag.name |
-		tag := input.tags[_]
+		some tag in tags
 		is_object(tag)
 		is_string(tag.name)
 	]

@@ -14,15 +14,15 @@ results[lib.format_msg(rego.metadata.rule(), path, message)] {
 	is_array(params)
 	count(params) > 1
 
-	dupe_results := get_dupe_results(params, path_parent)
-	collision_results := get_body_formdata_collision_results(params, path_parent)
-	ensured_body_param_results := get_ensure_one_body_param_results(params, path_parent)
+	dupes := dupe_results(params, path_parent)
+	collisions := body_formdata_collision_results(params, path_parent)
+	ensured_body_params := ensure_one_body_param_results(params, path_parent)
 
-	all_results := (dupe_results | collision_results) | ensured_body_param_results
+	all_results := (dupes | collisions) | ensured_body_params
 	all_results[[path, message]]
 }
 
-get_dupe_results(params, path_parent) := dupe_results {
+dupe_results(params, path_parent) := dupe_results {
 	dupes := union({{i1, i2} |
 		params[i1].name == params[i2].name
 		params[i1].in == params[i2].in
@@ -36,7 +36,7 @@ get_dupe_results(params, path_parent) := dupe_results {
 	}
 }
 
-get_body_formdata_collision_results(params, path) := collision_results {
+body_formdata_collision_results(params, path) := collision_results {
 	msg := "Operation must not have both \"in:body\" and \"in:formData\" parameters."
 	collision_results := {[p, m] |
 		body_count := [i | params[i].in == "body"]
@@ -50,7 +50,7 @@ get_body_formdata_collision_results(params, path) := collision_results {
 	}
 }
 
-get_ensure_one_body_param_results(params, path_parent) := ensured_body_param_results {
+ensure_one_body_param_results(params, path_parent) := ensured_body_param_results {
 	msg := "Operation must not have more than a single instance of the \"in:body\" parameter."
 	ensured_body_param_results = {[p, m] |
 		body_count := [i | params[i].in == "body"]

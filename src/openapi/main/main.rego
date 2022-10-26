@@ -1,5 +1,7 @@
 package openapi.main
 
+import future.keywords.in
+
 # METADATA
 # title: problems
 # description: Returns all non-successful rule validation results.
@@ -23,8 +25,8 @@ problems[msg] {
 # title: successes 
 # description: Returns all successful rule validation results.
 successes[msg] {
-	ref_codes := {k | policy_ref := policy_refs[_]; k := policy_ref}
-	p_codes := {k | k := problems[_].code}
+	ref_codes := {code | some code in policy_refs}
+	p_codes := {code | some problem in problems; code := problem.code}
 	success_codes := ref_codes - p_codes
 	success_codes[code]
 	msg := {"code": code}
@@ -33,16 +35,16 @@ successes[msg] {
 # METADATA
 # title: results
 # description: Returns all successful and non-successful rule validation results.
-results[msg] {
-	ref_codes := {k | policy_ref := policy_refs[_]; k := policy_ref}
-	p_codes := {k | k := problems[_].code}
+results[message] {
+	ref_codes := {code | some code in policy_refs}
+	p_codes := {code | some problem in problems; code := problem.code}
 
 	ref_codes[code]
-	messages := get_msg(code, p_codes)
-	messages[msg]
+	messages := msg(code, p_codes)
+	messages[message]
 }
 
-get_msg(code, p_codes) := msgs {
+msg(code, p_codes) := msgs {
 	p_codes[code]
 	msgs := {msg |
 		problems[result].code == code
@@ -56,9 +58,9 @@ get_msg(code, p_codes) := msgs {
 	}
 }
 
-get_msg(code, p_codes) := {msg} {
+msg(code, p_codes) := {message} {
 	not p_codes[code]
-	msg := {
+	message := {
 		"code": code,
 		"status": "success",
 	}

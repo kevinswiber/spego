@@ -8,6 +8,7 @@ import data.openapi.lib
 # custom:
 #   message: Path must not end with slash.
 results[lib.format(rego.metadata.rule(), path)] {
+	some path_key
 	input.paths[path_key]
 	endswith(path_key, "/")
 	path := ["paths", path_key]

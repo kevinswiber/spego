@@ -1,14 +1,16 @@
 package openapi.policies["path-params"].lib
 
-get_duplicate_path_param_definition_results(parameters, path_prefix) := {[path, message] |
-	path_params := get_named_path_params(parameters, path_prefix)
+import future.keywords.in
+
+duplicate_path_param_definition_results(parameters, path_prefix) := {[path, message] |
+	path_params := named_path_params(parameters, path_prefix)
 
 	dupes := {name: val |
-		[param, _] := path_params[_]
+		some [param, _] in path_params
 		name = param.name
 
 		val := {index |
-			[param, index] = path_params[_]
+			some [param, index] in path_params
 			name == param.name
 		}
 		count(val) > 1

@@ -12,9 +12,10 @@ results[lib.format(rego.metadata.rule(), path)] {
 	path := ["info", "license", "url"]
 	url := object.get(input, path, true)
 
-	is_not_str := is_string(url) == false
-	is_empty := url == ""
+	checks := {
+		is_string(url) == false,
+		url == "",
+	}
 
-	checks := {is_not_str, is_empty}
 	checks[true]
 }

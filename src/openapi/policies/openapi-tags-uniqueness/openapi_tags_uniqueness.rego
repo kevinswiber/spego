@@ -1,6 +1,7 @@
 package openapi.policies["openapi-tags-uniqueness"]
 
 import data.openapi.lib
+import future.keywords.every
 
 # METADATA
 # title: openapi-tags-uniqueness
@@ -8,13 +9,19 @@ import data.openapi.lib
 results[lib.format_msg(rego.metadata.rule(), path, message)] {
 	tags := input.tags
 	dupes := {tagName: indexes |
-		tagName = tags[_].name
-		indexes := {i | tags[i].name == tagName}
+		some tag in tags
+		tagName := tag.name
+		indexes := {index |
+			some index, inner_tag in tags
+			inner_tag.name == tagName
+		}
 		count(indexes) > 1
 	}
-	indexes := dupes[name]
-	indexes[i1]
 
-	path := ["tags", sprintf("%d", [i1])]
+	some name, index
+	indexes := dupes[name]
+	indexes[index]
+
+	path := ["tags", sprintf("%d", [index])]
 	message := sprintf("\"tags\" object contains duplicate tag name \"%s\".", [name])
 }

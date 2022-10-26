@@ -8,6 +8,7 @@ import data.openapi.lib
 # custom:
 #   message: Path parameter declarations must not be empty, ex."/given/{}" is invalid.
 results[lib.format(rego.metadata.rule(), path)] {
+	some path_key
 	input.paths[path_key]
 	contains(path_key, "{}")
 	path := ["paths", path_key]

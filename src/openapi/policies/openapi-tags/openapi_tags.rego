@@ -21,7 +21,7 @@ is_invalid(tags) {
 
 is_invalid(tags) {
 	is_tags_array := is_array(tags)
-	is_tags_array == false
+	not is_tags_array
 }
 
 is_invalid(tags) {
