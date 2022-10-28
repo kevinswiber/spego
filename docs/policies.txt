@@ -8,98 +8,80 @@ MANIFEST:
 |          | openapi/policies |
 +----------+------------------+
 NAMESPACES:
-+-------------------------------------------------------------+----------------------------------------------------------+
-|                          NAMESPACE                          |                           FILE                           |
-+-------------------------------------------------------------+----------------------------------------------------------+
-| data.openapi.lib                                            | src/openapi/lib/lib.rego                                 |
-| data.openapi.main                                           | src/openapi/main/conftest.rego                           |
-|                                                             | src/openapi/main/main.rego                               |
-|                                                             | src/openapi/main/main_test.rego                          |
-|                                                             | src/openapi/main/recommended.rego                        |
-|                                                             | src/openapi/main/ruleset.rego                            |
-| data.openapi.policies["contact-properties"]                 | src/.../contact-properties/contact_properties.rego       |
-|                                                             | src/...act-properties/contact_properties_test.rego       |
-| data.openapi.policies["duplicated-entry-in-enum"]           | src/...entry-in-enum/duplicated_entry_in_enum.rego       |
-|                                                             | src/...-in-enum/duplicated_entry_in_enum_test.rego       |
-| data.openapi.policies["info-contact"]                       | src/...api/policies/info-contact/info_contact.rego       |
-|                                                             | src/...olicies/info-contact/info_contact_test.rego       |
-| data.openapi.policies["info-description"]                   | src/...cies/info-description/info_description.rego       |
-|                                                             | src/...info-description/info_description_test.rego       |
-| data.openapi.policies["info-license"]                       | src/...api/policies/info-license/info_license.rego       |
-|                                                             | src/...olicies/info-license/info_license_test.rego       |
-| data.openapi.policies["license-url"]                        | src/openapi/policies/license-url/license_url.rego        |
-|                                                             | src/.../policies/license-url/license_url_test.rego       |
-| data.openapi.policies["no-eval-in-markdown"]                | src/...o-eval-in-markdown/no_eval_in_markdown.rego       |
-|                                                             | src/...l-in-markdown/no_eval_in_markdown_test.rego       |
-| data.openapi.policies["no-script-tags-in-markdown"]         | src/...in-markdown/no_script_tags_in_markdown.rego       |
-|                                                             | src/...rkdown/no_script_tags_in_markdown_test.rego       |
-| data.openapi.policies["openapi-tags"]                       | src/...api/policies/openapi-tags/openapi_tags.rego       |
-|                                                             | src/...olicies/openapi-tags/openapi_tags_test.rego       |
-| data.openapi.policies["openapi-tags-uniqueness"]            | src/...ags-uniqueness/openapi_tags_uniqueness.rego       |
-|                                                             | src/...niqueness/openapi_tags_uniqueness_test.rego       |
-| data.openapi.policies["operation-description"]              | src/...tion-description/operation_description.rego       |
-|                                                             | src/...description/operation_description_test.rego       |
-| data.openapi.policies["operation-operationId"]              | src/...tion-operationId/operation_operationid.rego       |
-|                                                             | src/...operationId/operation_operationid_test.rego       |
-| data.openapi.policies["operation-operationId-unique"]       | src/...Id-unique/operation_operationid_unique.rego       |
-|                                                             | src/...ique/operation_operationid_unique_test.rego       |
-| data.openapi.policies["operation-operationId-valid-in-url"] | src/...url/operation_operationid_valid_in_url.rego       |
-|                                                             | src/.../operation_operationid_valid_in_url_test.rego     |
-| data.openapi.policies["operation-parameters"]               | src/...ration-parameters/operation_parameters.rego       |
-|                                                             | src/...n-parameters/operation_parameters_test.rego       |
-| data.openapi.policies["operation-singular-tag"]             | src/...on-singular-tag/operation_singular_tag.rego       |
-|                                                             | src/...ngular-tag/operation_singular_tag_test.rego       |
-| data.openapi.policies["operation-success-response"]         | src/...ss-response/operation_success_response.rego       |
-|                                                             | src/...sponse/operation_success_response_test.rego       |
-| data.openapi.policies["operation-tag-defined"]              | src/...tion-tag-defined/operation_tag_defined.rego       |
-|                                                             | src/...tag-defined/operation_tag_defined_test.rego       |
-| data.openapi.policies["operation-tags"]                     | src/...policies/operation-tags/operation_tags.rego       |
-|                                                             | src/...ies/operation-tags/operation_tags_test.rego       |
-| data.openapi.policies["path-declarations-must-exist"]       | src/...ust-exist/path_declarations_must_exist.rego       |
-|                                                             | src/...xist/path_declarations_must_exist_test.rego       |
-| data.openapi.policies["path-keys-no-trailing-slash"]        | src/...ling-slash/path_keys_no_trailing_slash.rego       |
-|                                                             | src/...slash/path_keys_no_trailing_slash_test.rego       |
-| data.openapi.policies["path-not-include-query"]             | src/...t-include-query/path_not_include_query.rego       |
-|                                                             | src/...lude-query/path_not_include_query_test.rego       |
-| data.openapi.policies["path-params"]                        | src/openapi/policies/path-params/path_params.rego        |
-|                                                             | src/.../policies/path-params/path_params_test.rego       |
-| data.openapi.policies["path-params"].lib                    | src/.../get_duplicate_path_param_definition_results.rego |
-|                                                             | src/.../get_duplicate_var_name_in_path_results.rego      |
-|                                                             | src/...params/lib/get_param_asymmetry_results.rego       |
-|                                                             | src/...-params/lib/get_path_collision_results.rego       |
-|                                                             | src/.../get_path_param_missing_required_results.rego     |
-|                                                             | src/openapi/policies/path-params/lib/lib.rego            |
-|                                                             | src/...pi/policies/path-params/lib/path_regex.rego       |
-| data.openapi.policies["tag-description"]                    | src/...licies/tag-description/tag_description.rego       |
-|                                                             | src/...s/tag-description/tag_description_test.rego       |
-+-------------------------------------------------------------+----------------------------------------------------------+
++-------------------------------------------------------------+------------------------------------------------------+
+|                          NAMESPACE                          |                         FILE                         |
++-------------------------------------------------------------+------------------------------------------------------+
+| data.openapi.lib                                            | src/openapi/lib/lib.rego                             |
+| data.openapi.main                                           | src/openapi/main/conftest.rego                       |
+|                                                             | src/openapi/main/main.rego                           |
+|                                                             | src/openapi/main/main_test.rego                      |
+|                                                             | src/openapi/main/recommended.rego                    |
+|                                                             | src/openapi/main/ruleset.rego                        |
+| data.openapi.policies["contact-properties"]                 | src/.../contact-properties/contact_properties.rego   |
+|                                                             | src/...act-properties/contact_properties_test.rego   |
+| data.openapi.policies["duplicated-entry-in-enum"]           | src/...entry-in-enum/duplicated_entry_in_enum.rego   |
+|                                                             | src/...-in-enum/duplicated_entry_in_enum_test.rego   |
+| data.openapi.policies["info-contact"]                       | src/...api/policies/info-contact/info_contact.rego   |
+|                                                             | src/...olicies/info-contact/info_contact_test.rego   |
+| data.openapi.policies["info-description"]                   | src/...cies/info-description/info_description.rego   |
+|                                                             | src/...info-description/info_description_test.rego   |
+| data.openapi.policies["info-license"]                       | src/...api/policies/info-license/info_license.rego   |
+|                                                             | src/...olicies/info-license/info_license_test.rego   |
+| data.openapi.policies["license-url"]                        | src/openapi/policies/license-url/license_url.rego    |
+|                                                             | src/.../policies/license-url/license_url_test.rego   |
+| data.openapi.policies["no-eval-in-markdown"]                | src/...o-eval-in-markdown/no_eval_in_markdown.rego   |
+|                                                             | src/...l-in-markdown/no_eval_in_markdown_test.rego   |
+| data.openapi.policies["no-script-tags-in-markdown"]         | src/...in-markdown/no_script_tags_in_markdown.rego   |
+|                                                             | src/...rkdown/no_script_tags_in_markdown_test.rego   |
+| data.openapi.policies["openapi-tags"]                       | src/...api/policies/openapi-tags/openapi_tags.rego   |
+|                                                             | src/...olicies/openapi-tags/openapi_tags_test.rego   |
+| data.openapi.policies["openapi-tags-uniqueness"]            | src/...ags-uniqueness/openapi_tags_uniqueness.rego   |
+|                                                             | src/...niqueness/openapi_tags_uniqueness_test.rego   |
+| data.openapi.policies["operation-description"]              | src/...tion-description/operation_description.rego   |
+|                                                             | src/...description/operation_description_test.rego   |
+| data.openapi.policies["operation-operationId"]              | src/...tion-operationId/operation_operationid.rego   |
+|                                                             | src/...operationId/operation_operationid_test.rego   |
+| data.openapi.policies["operation-operationId-unique"]       | src/...Id-unique/operation_operationid_unique.rego   |
+|                                                             | src/...ique/operation_operationid_unique_test.rego   |
+| data.openapi.policies["operation-operationId-valid-in-url"] | src/...url/operation_operationid_valid_in_url.rego   |
+|                                                             | src/.../operation_operationid_valid_in_url_test.rego |
+| data.openapi.policies["operation-parameters"]               | src/...ration-parameters/operation_parameters.rego   |
+|                                                             | src/...n-parameters/operation_parameters_test.rego   |
+| data.openapi.policies["operation-singular-tag"]             | src/...on-singular-tag/operation_singular_tag.rego   |
+|                                                             | src/...ngular-tag/operation_singular_tag_test.rego   |
+| data.openapi.policies["operation-success-response"]         | src/...ss-response/operation_success_response.rego   |
+|                                                             | src/...sponse/operation_success_response_test.rego   |
+| data.openapi.policies["operation-tag-defined"]              | src/...tion-tag-defined/operation_tag_defined.rego   |
+|                                                             | src/...tag-defined/operation_tag_defined_test.rego   |
+| data.openapi.policies["operation-tags"]                     | src/...policies/operation-tags/operation_tags.rego   |
+|                                                             | src/...ies/operation-tags/operation_tags_test.rego   |
+| data.openapi.policies["path-declarations-must-exist"]       | src/...ust-exist/path_declarations_must_exist.rego   |
+|                                                             | src/...xist/path_declarations_must_exist_test.rego   |
+| data.openapi.policies["path-keys-no-trailing-slash"]        | src/...ling-slash/path_keys_no_trailing_slash.rego   |
+|                                                             | src/...slash/path_keys_no_trailing_slash_test.rego   |
+| data.openapi.policies["path-not-include-query"]             | src/...t-include-query/path_not_include_query.rego   |
+|                                                             | src/...lude-query/path_not_include_query_test.rego   |
+| data.openapi.policies["path-params"]                        | src/openapi/policies/path-params/path_params.rego    |
+|                                                             | src/.../policies/path-params/path_params_test.rego   |
+| data.openapi.policies["path-params"].lib                    | src/.../duplicate_path_param_definition_results.rego |
+|                                                             | src/...lib/duplicate_var_name_in_path_results.rego   |
+|                                                             | src/openapi/policies/path-params/lib/lib.rego        |
+|                                                             | src/...ath-params/lib/param_asymmetry_results.rego   |
+|                                                             | src/...path-params/lib/path_collision_results.rego   |
+|                                                             | src/...ib/path_param_missing_required_results.rego   |
+|                                                             | src/...pi/policies/path-params/lib/path_regex.rego   |
+| data.openapi.policies["tag-description"]                    | src/...licies/tag-description/tag_description.rego   |
+|                                                             | src/...s/tag-description/tag_description_test.rego   |
++-------------------------------------------------------------+------------------------------------------------------+
 ANNOTATIONS:
-problems
-========
+successes
+=========
 
-Returns all non-successful rule validation results.
-
-Package:  openapi.main
-Rule:     problems
-Location: src/openapi/main/main.rego:6
-
-results
-=======
-
-Returns all successful and non-successful rule validation results.
+Returns all successful rule validation results.
 
 Package:  openapi.main
-Rule:     results
-Location: src/openapi/main/main.rego:36
-
-warn
-====
-
-Conftest-compatible warn rule.
-
-Package:  openapi.main
-Rule:     warn
-Location: src/openapi/main/conftest.rego:10
+Rule:     successes
+Location: src/openapi/main/main.rego:27
 
 violation
 =========
@@ -108,16 +90,34 @@ Conftest-compatible violation rule.
 
 Package:  openapi.main
 Rule:     violation
-Location: src/openapi/main/conftest.rego:28
+Location: src/openapi/main/conftest.rego:30
 
-successes
-=========
+warn
+====
 
-Returns all successful rule validation results.
+Conftest-compatible warn rule.
 
 Package:  openapi.main
-Rule:     successes
-Location: src/openapi/main/main.rego:25
+Rule:     warn
+Location: src/openapi/main/conftest.rego:12
+
+problems
+========
+
+Returns all non-successful rule validation results.
+
+Package:  openapi.main
+Rule:     problems
+Location: src/openapi/main/main.rego:8
+
+results
+=======
+
+Returns all successful and non-successful rule validation results.
+
+Package:  openapi.main
+Rule:     results
+Location: src/openapi/main/main.rego:38
 
 contact-properties
 ==================
@@ -126,10 +126,7 @@ Contact object must have "name", "url" and "email".
 
 Package:  openapi.policies["contact-properties"]
 Rule:     results
-Location: src/openapi/policies/contact-properties/contact_properties.rego:10
-
-Custom:
- message: "Contact object must have \"name\", \"url\" and \"email\"."
+Location: src/openapi/policies/contact-properties/contact_properties.rego:8
 
 duplicated-entry-in-enum
 ========================
@@ -138,7 +135,7 @@ Enum values must not have duplicate entry.
 
 Package:  openapi.policies["duplicated-entry-in-enum"]
 Rule:     results
-Location: src/openapi/policies/duplicated-entry-in-enum/duplicated_entry_in_enum.rego:8
+Location: src/openapi/policies/duplicated-entry-in-enum/duplicated_entry_in_enum.rego:9
 
 info-contact
 ============
@@ -147,10 +144,7 @@ Info object must have "contact" object.
 
 Package:  openapi.policies["info-contact"]
 Rule:     results
-Location: src/openapi/policies/info-contact/info_contact.rego:10
-
-Custom:
- message: "Info object must have \"contact\" object."
+Location: src/openapi/policies/info-contact/info_contact.rego:8
 
 info-description
 ================
@@ -159,10 +153,7 @@ Info "description" must be present and non-empty string.
 
 Package:  openapi.policies["info-description"]
 Rule:     results
-Location: src/openapi/policies/info-description/info_description.rego:10
-
-Custom:
- message: "Info \"description\" must be present and non-empty string."
+Location: src/openapi/policies/info-description/info_description.rego:8
 
 info-license
 ============
@@ -171,10 +162,7 @@ Info object must have "license" object.
 
 Package:  openapi.policies["info-license"]
 Rule:     results
-Location: src/openapi/policies/info-license/info_license.rego:11
-
-Custom:
- message: "Info object must have \"license\" object."
+Location: src/openapi/policies/info-license/info_license.rego:8
 
 license-url
 ===========
@@ -183,10 +171,7 @@ License object must include "url".
 
 Package:  openapi.policies["license-url"]
 Rule:     results
-Location: src/openapi/policies/license-url/license_url.rego:11
-
-Custom:
- message: "License object must include \"url\"."
+Location: src/openapi/policies/license-url/license_url.rego:8
 
 no-eval-in-markdown
 ===================
@@ -195,10 +180,7 @@ Markdown descriptions must not have "eval(".
 
 Package:  openapi.policies["no-eval-in-markdown"]
 Rule:     results
-Location: src/openapi/policies/no-eval-in-markdown/no_eval_in_markdown.rego:10
-
-Custom:
- message: "Markdown descriptions must not have \"eval(\"."
+Location: src/openapi/policies/no-eval-in-markdown/no_eval_in_markdown.rego:9
 
 no-script-tags-in-markdown
 ==========================
@@ -207,22 +189,7 @@ Markdown descriptions must not have "<script>" tags.
 
 Package:  openapi.policies["no-script-tags-in-markdown"]
 Rule:     results
-Location: src/openapi/policies/no-script-tags-in-markdown/no_script_tags_in_markdown.rego:10
-
-Custom:
- message: "Markdown descriptions must not have \"\u003cscript\u003e\" tags."
-
-openapi-tags
-============
-
-OpenAPI object must have non-empty "tags" array.
-
-Package:  openapi.policies["openapi-tags"]
-Rule:     results
-Location: src/openapi/policies/openapi-tags/openapi_tags.rego:10
-
-Custom:
- message: "OpenAPI object must have non-empty \"tags\" array."
+Location: src/openapi/policies/no-script-tags-in-markdown/no_script_tags_in_markdown.rego:9
 
 openapi-tags-uniqueness
 =======================
@@ -231,7 +198,16 @@ Each tag must have a unique name.
 
 Package:  openapi.policies["openapi-tags-uniqueness"]
 Rule:     results
-Location: src/openapi/policies/openapi-tags-uniqueness/openapi_tags_uniqueness.rego:8
+Location: src/openapi/policies/openapi-tags-uniqueness/openapi_tags_uniqueness.rego:9
+
+openapi-tags
+============
+
+OpenAPI object must have non-empty "tags" array.
+
+Package:  openapi.policies["openapi-tags"]
+Rule:     results
+Location: src/openapi/policies/openapi-tags/openapi_tags.rego:8
 
 operation-description
 =====================
@@ -240,10 +216,7 @@ Operation "description" must be present and non-empty string.
 
 Package:  openapi.policies["operation-description"]
 Rule:     results
-Location: src/openapi/policies/operation-description/operation_description.rego:10
-
-Custom:
- message: "Operation \"description\" must be present and non-empty string."
+Location: src/openapi/policies/operation-description/operation_description.rego:8
 
 operation-operationId-unique
 ============================
@@ -258,18 +231,6 @@ Custom:
  message:  "operationId must be unique"
  severity: "error"
 
-operation-operationId
-=====================
-
-Operation must have "operationId".
-
-Package:  openapi.policies["operation-operationId"]
-Rule:     results
-Location: src/openapi/policies/operation-operationId/operation_operationid.rego:10
-
-Custom:
- message: "Operation must have \"operationId\"."
-
 operation-operationId-valid-in-url
 ==================================
 
@@ -277,10 +238,16 @@ operationId must not have characters that are invalid when used in URL.
 
 Package:  openapi.policies["operation-operationId-valid-in-url"]
 Rule:     results
-Location: src/openapi/policies/operation-operationId-valid-in-url/operation_operationid_valid_in_url.rego:10
+Location: src/openapi/policies/operation-operationId-valid-in-url/operation_operationid_valid_in_url.rego:8
 
-Custom:
- message: "operationId must not have characters that are invalid when used in...
+operation-operationId
+=====================
+
+Operation must have "operationId".
+
+Package:  openapi.policies["operation-operationId"]
+Rule:     results
+Location: src/openapi/policies/operation-operationId/operation_operationid.rego:8
 
 operation-parameters
 ====================
@@ -298,10 +265,7 @@ Operation must not have more than a singular tag.
 
 Package:  openapi.policies["operation-singular-tag"]
 Rule:     results
-Location: src/openapi/policies/operation-singular-tag/operation_singular_tag.rego:10
-
-Custom:
- message: "Operation must not have more than a singular tag."
+Location: src/openapi/policies/operation-singular-tag/operation_singular_tag.rego:8
 
 operation-success-response
 ==========================
@@ -310,10 +274,7 @@ Operation must have at least one "2xx" or "3xx" response.
 
 Package:  openapi.policies["operation-success-response"]
 Rule:     results
-Location: src/openapi/policies/operation-success-response/operation_success_response.rego:10
-
-Custom:
- message: "Operation must define at least a single 2xx or 3xx response."
+Location: src/openapi/policies/operation-success-response/operation_success_response.rego:8
 
 operation-tag-defined
 =====================
@@ -322,10 +283,7 @@ Operation tags must be defined in global tags.
 
 Package:  openapi.policies["operation-tag-defined"]
 Rule:     results
-Location: src/openapi/policies/operation-tag-defined/operation_tag_defined.rego:11
-
-Custom:
- message: "Operation tags must be defined in global tags."
+Location: src/openapi/policies/operation-tag-defined/operation_tag_defined.rego:9
 
 operation-tags
 ==============
@@ -334,10 +292,7 @@ Operation must have non-empty "tags" array.
 
 Package:  openapi.policies["operation-tags"]
 Rule:     results
-Location: src/openapi/policies/operation-tags/operation_tags.rego:10
-
-Custom:
- message: "Operation must have non-empty \"tags\" array."
+Location: src/openapi/policies/operation-tags/operation_tags.rego:8
 
 path-declarations-must-exist
 ============================
@@ -346,10 +301,7 @@ Path parameter declarations must not be empty, ex."/given/{}" is invalid.
 
 Package:  openapi.policies["path-declarations-must-exist"]
 Rule:     results
-Location: src/openapi/policies/path-declarations-must-exist/path_declarations_must_exist.rego:10
-
-Custom:
- message: "Path parameter declarations must not be empty, ex.\"/given/{}\" is...
+Location: src/openapi/policies/path-declarations-must-exist/path_declarations_must_exist.rego:8
 
 path-keys-no-trailing-slash
 ===========================
@@ -358,10 +310,7 @@ Path must not end with slash.
 
 Package:  openapi.policies["path-keys-no-trailing-slash"]
 Rule:     results
-Location: src/openapi/policies/path-keys-no-trailing-slash/path_keys_no_trailing_slash.rego:10
-
-Custom:
- message: "Path must not end with slash."
+Location: src/openapi/policies/path-keys-no-trailing-slash/path_keys_no_trailing_slash.rego:8
 
 path-not-include-query
 ======================
@@ -370,10 +319,7 @@ Path must not include query string.
 
 Package:  openapi.policies["path-not-include-query"]
 Rule:     results
-Location: src/openapi/policies/path-not-include-query/path_not_include_query.rego:10
-
-Custom:
- message: "Path must not include query string."
+Location: src/openapi/policies/path-not-include-query/path_not_include_query.rego:8
 
 path-params
 ===========
@@ -394,8 +340,5 @@ Tag object must have "description".
 
 Package:  openapi.policies["tag-description"]
 Rule:     results
-Location: src/openapi/policies/tag-description/tag_description.rego:10
-
-Custom:
- message: "Tag object must have \"description\"."
+Location: src/openapi/policies/tag-description/tag_description.rego:8
 
