@@ -12,5 +12,6 @@ Be sure to follow the [Spectral install instructions](https://meta.stoplight.io/
 git clone git@github.com:kevinswiber/spego.git
 cd ./spego/example/spectral
 npm install
+npm run build
 spectral lint ../inputs/openapi.json
 ```
