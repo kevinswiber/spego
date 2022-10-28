@@ -1,3 +1,4 @@
+name: bundle
 on:
   push:
     branches: [main]
