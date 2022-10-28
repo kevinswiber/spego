@@ -1,3 +1,0 @@
-package openapi.policies["openapi-tags-uniqueness"]
-
-test_tags_must_be_unique = true { assign(result1, {"code": "openapi-tags-uniqueness", "message": "\"tags\" object contains duplicate tag name \"A\".", "path": ["tags", "0"]}); assign(result2, {"code": "openapi-tags-uniqueness", "message": "\"tags\" object contains duplicate tag name \"A\".", "path": ["tags", "2"]}); assign(res, results) with input as {"tags": [{"name": "A"}, {"name": "B"}, {"name": "A"}]}; res[result1]; res[result2] }

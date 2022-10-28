@@ -1,3 +1,0 @@
-package openapi.main
-
-recommended_policy_refs := {"duplicated-entry-in-enum", "info-contact", "info-description", "no-eval-in-markdown", "no-script-tags-in-markdown", "openapi-tags-uniqueness", "operation-description", "operation-operationId", "operation-operationId-unique", "operation-operationId-valid-in-url", "operation-parameters", "operation-success-response", "operation-tag-defined", "operation-tags", "path-declarations-must-exist", "path-keys-no-trailing-slash", "path-not-include-query", "path-params"} { true }
