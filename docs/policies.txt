@@ -74,14 +74,14 @@ NAMESPACES:
 |                                                             | src/...s/tag-description/tag_description_test.rego   |
 +-------------------------------------------------------------+------------------------------------------------------+
 ANNOTATIONS:
-successes
-=========
+problems
+========
 
-Returns all successful rule validation results.
+Returns all non-successful rule validation results.
 
 Package:  openapi.main
-Rule:     successes
-Location: src/openapi/main/main.rego:27
+Rule:     problems
+Location: src/openapi/main/main.rego:9
 
 violation
 =========
@@ -92,6 +92,15 @@ Package:  openapi.main
 Rule:     violation
 Location: src/openapi/main/conftest.rego:30
 
+successes
+=========
+
+Returns all successful rule validation results.
+
+Package:  openapi.main
+Rule:     successes
+Location: src/openapi/main/main.rego:28
+
 warn
 ====
 
@@ -101,15 +110,6 @@ Package:  openapi.main
 Rule:     warn
 Location: src/openapi/main/conftest.rego:12
 
-problems
-========
-
-Returns all non-successful rule validation results.
-
-Package:  openapi.main
-Rule:     problems
-Location: src/openapi/main/main.rego:8
-
 results
 =======
 
@@ -117,7 +117,7 @@ Returns all successful and non-successful rule validation results.
 
 Package:  openapi.main
 Rule:     results
-Location: src/openapi/main/main.rego:38
+Location: src/openapi/main/main.rego:39
 
 contact-properties
 ==================

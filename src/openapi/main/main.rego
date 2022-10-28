@@ -1,5 +1,6 @@
 package openapi.main
 
+import data.openapi.lib
 import future.keywords.in
 
 # METADATA
@@ -10,8 +11,8 @@ problems[msg] {
 	data.openapi.policies[policy_ref].results[result]
 	result.code == policy_ref
 
-	severity_default := resolve_result_severity(result, "warn")
-	severity := resolve_rule_severity(policy_ref, severity_default)
+	severity_default := lib.resolve_result_severity(result, "warn")
+	severity := lib.resolve_rule_severity(policy_ref, severity_default, severity_overrides)
 
 	msg := {
 		"code": result.code,
@@ -37,49 +38,16 @@ successes[msg] {
 # description: Returns all successful and non-successful rule validation results.
 results[message] {
 	ref_codes := {code | some code in policy_refs}
-	p_codes := {code | some problem in problems; code := problem.code}
-
-	ref_codes[code]
-	messages := msg(code, p_codes)
-	messages[message]
-}
-
-msg(code, p_codes) := msgs {
-	p_codes[code]
-	msgs := {msg |
-		problems[result].code == code
-		msg := {
-			"code": code,
-			"message": result.message,
-			"path": result.path,
-			"severity": result.severity,
-			"status": "failure",
+	p_map := {code: results |
+		some result in problems
+		code := result.code
+		results := {inner_result |
+			problems[inner_result]
+			inner_result.code == code
 		}
 	}
-}
 
-msg(code, p_codes) := {message} {
-	not p_codes[code]
-	message := {
-		"code": code,
-		"status": "success",
-	}
-}
-
-resolve_result_severity(result, _default) := severity {
-	not result.severity
-	severity := _default
-}
-
-resolve_result_severity(result, _default) := severity {
-	severity := result.severity
-}
-
-resolve_rule_severity(policy_ref, _default) := severity {
-	not severity_overrides[policy_ref]
-	severity := _default
-}
-
-resolve_rule_severity(policy_ref, _default) := severity {
-	severity := severity_overrides[policy_ref]
+	ref_codes[code]
+	messages := lib.msg(code, p_map)
+	messages[message]
 }
