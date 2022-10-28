@@ -59,7 +59,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./models.yaml#/components/schemas/User"
+                  "$ref": "#/components/schemas/Error"
                 }
               }
             }
@@ -80,7 +80,7 @@
   },
   "components": {
     "schemas": {
-      "A": {
+      "User": {
         "type": "object",
         "properties": {
           "id": {

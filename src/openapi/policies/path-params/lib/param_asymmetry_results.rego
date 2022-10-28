@@ -4,9 +4,15 @@ import future.keywords.in
 
 param_asymmetry_results(defined_params, path_key, path) := asymmetry_results {
 	path_elements := {match |
-		all_matches := regex.find_n(path_regex, path_key, -1)
+		# regex.find_n is SDK-dependent and not working in Wasm.
+		# all_matches := regex.find_n(path_regex, path_key, -1)
+		all_matches := regex.find_all_string_submatch_n(path_regex, path_key, -1)
+
 		some m in all_matches
-		match := regex.replace(m, "[{}?*;]", "")
+
+		# regex.replace is SDK-dependent and not working in Wasm.
+		# match := regex.replace(m, "[{}?*;]", "")
+		match := regex_omit(m[0], "[{}?*;]")
 	}
 
 	unused_path_param_results := {[p, m] |

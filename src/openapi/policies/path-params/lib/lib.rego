@@ -17,3 +17,8 @@ named_path_params_unique_required(params, path_prefix) := {p |
 	ps[p]
 	p[0].required
 }
+
+regex_omit(original, pattern) := modified {
+	parts := regex.split(pattern, original)
+	modified := concat("", parts)
+}

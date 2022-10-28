@@ -5,7 +5,15 @@ import future.keywords.in
 path_collision_results(paths_obj) := {[p, m] |
 	normalized_paths := [normalized |
 		paths_obj[path]
-		normalized := regex.replace(path, path_regex, "%")
+
+		# regex.replace is SDK-dependent and not working in Wasm.
+		# normalized := regex.replace(path, path_regex, "%")
+		replacement_values := {match: "%" |
+			all_matches := regex.find_all_string_submatch_n(path_regex, path, -1)
+			some m in all_matches
+			match := m[0]
+		}
+		normalized := strings.replace_n(replacement_values, path)
 	]
 	paths := [path |
 		paths_obj[path]
