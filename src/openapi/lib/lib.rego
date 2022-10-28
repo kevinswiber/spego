@@ -11,6 +11,7 @@ format(meta, path) := result {
 		{
 			"code": meta.title,
 			"path": path,
+			"message": extract_message(meta),
 		},
 	)
 }
@@ -30,4 +31,13 @@ merge_custom(meta, obj) := merged {
 
 merge_custom(meta, obj) := merged {
 	merged := object.union(meta.custom, obj)
+}
+
+extract_message(meta) := msg {
+	not meta.custom.message
+	msg := meta.description
+}
+
+extract_message(meta) := msg {
+	msg := meta.custom.message
 }

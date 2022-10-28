@@ -5,8 +5,6 @@ import data.openapi.lib
 # METADATA
 # title: info-description
 # description: Info "description" must be present and non-empty string.
-# custom:
-#   message: Info "description" must be present and non-empty string.
 results[lib.format(rego.metadata.rule(), path)] {
 	path := ["info", "description"]
 	description := object.get(input, path, true)

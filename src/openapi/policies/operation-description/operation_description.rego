@@ -5,8 +5,6 @@ import data.openapi.lib
 # METADATA
 # title: operation-description
 # description: Operation "description" must be present and non-empty string.
-# custom:
-#   message: Operation "description" must be present and non-empty string.
 results[lib.format(rego.metadata.rule(), path)] {
 	op := input.paths[p][m]
 	lib.is_method_valid(m)

@@ -6,7 +6,7 @@ test_no_success_response_code_fails {
 	result := {
 		"code": "operation-success-response",
 		"path": ["paths", "/users", "get", "responses"],
-		"message": "Operation must define at least a single 2xx or 3xx response.",
+		"message": "Operation must have at least one \"2xx\" or \"3xx\" response.",
 	}
 	results[result] with input as mock_input
 }

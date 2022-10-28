@@ -5,8 +5,6 @@ import data.openapi.lib
 # METADATA
 # title: openapi-tags
 # description: OpenAPI object must have non-empty "tags" array.
-# custom:
-#   message: OpenAPI object must have non-empty "tags" array.
 results[lib.format(rego.metadata.rule(), path)] {
 	tags := object.get(input, "tags", true)
 
