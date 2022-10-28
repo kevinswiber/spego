@@ -1,5 +1,7 @@
 # spego
 
+[![bundle](https://github.com/kevinswiber/spego/actions/workflows/test.yaml/badge.svg)](https://github.com/kevinswiber/spego/actions/workflows/test.yaml)
+
 A set of policies for Open Policy Agent to validate OpenAPI definitions.
 
 - Use `opa eval` to execute policies against OpenAPI documents
