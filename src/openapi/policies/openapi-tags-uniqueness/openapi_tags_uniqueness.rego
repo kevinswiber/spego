@@ -6,6 +6,8 @@ import future.keywords.in
 # METADATA
 # title: openapi-tags-uniqueness
 # description: Each tag must have a unique name.
+# custom:
+#   recommended: true
 results[lib.format_msg(rego.metadata.rule(), path, message)] {
 	tags := input.tags
 	dupes := {tagName: indexes |

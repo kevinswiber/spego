@@ -6,6 +6,8 @@ import future.keywords.in
 # METADATA
 # title: no-eval-in-markdown
 # description: Markdown descriptions must not have "eval(".
+# custom:
+#   recommended: true
 results[lib.format(rego.metadata.rule(), path)] {
 	valid_props := {"title", "description"}
 	titles_and_descriptions := {[md_path, md_val] |

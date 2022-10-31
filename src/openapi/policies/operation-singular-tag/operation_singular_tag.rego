@@ -5,6 +5,8 @@ import data.openapi.lib
 # METADATA
 # title: operation-singular-tag
 # description: Operation must not have more than a singular tag.
+# custom:
+#   recommended: false
 results[lib.format(rego.metadata.rule(), path)] {
 	op := input.paths[p][m]
 	lib.is_method_valid(m)

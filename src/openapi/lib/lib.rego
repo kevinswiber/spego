@@ -30,7 +30,8 @@ merge_custom(meta, obj) := merged {
 }
 
 merge_custom(meta, obj) := merged {
-	merged := object.union(meta.custom, obj)
+	custom := object.remove(meta.custom, ["recommended"])
+	merged := object.union(custom, obj)
 }
 
 extract_message(meta) := msg {

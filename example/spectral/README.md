@@ -15,3 +15,13 @@ npm install
 npm run build
 spectral lint ../inputs/openapi.json
 ```
+
+Furthermore, this ruleset can be extended. See the `example` directory. Example extended Spectral ruleset:
+
+```yaml
+extends: [['../spectral.js', 'recommended']]
+rules:
+  no-script-tags-in-markdown: error
+  no-eval-in-markdown: error
+  path-params: false
+```

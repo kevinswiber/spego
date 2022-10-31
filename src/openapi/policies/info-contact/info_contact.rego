@@ -5,6 +5,8 @@ import data.openapi.lib
 # METADATA
 # title: info-contact
 # description: Info object must have "contact" object.
+# custom:
+#   recommended: true
 results[lib.format(rego.metadata.rule(), path)] {
 	path := ["info", "contact"]
 	contact := object.get(input, path, true)

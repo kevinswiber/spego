@@ -5,6 +5,8 @@ import data.openapi.lib
 # METADATA
 # title: contact-properties 
 # description: Contact object must have "name", "url" and "email".
+# custom:
+#   recommended: false
 results[lib.format(rego.metadata.rule(), path)] {
 	path := ["info", "contact"]
 	contact := input.info.contact

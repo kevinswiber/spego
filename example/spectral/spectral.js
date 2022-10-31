@@ -1,9 +1,10 @@
 const fs = require('node:fs');
 const { loadPolicySync } = require('@open-policy-agent/opa-wasm');
 const { opa } = require('./functions/opa.js');
+const policies = require('./policies');
+const wasm = require('./wasm');
 
-const policies = JSON.parse(fs.readFileSync('./policies.json', 'utf-8'));
-const policyModule = fs.readFileSync('./policy.wasm');
+const policyModule = Buffer.from(wasm, 'base64');
 const policy = loadPolicySync(policyModule);
 
 const policyAnnotations = policies?.annotations
@@ -18,6 +19,7 @@ for (const { title, description, custom } of policyAnnotations) {
   rules[title] = {
     description,
     severity: custom?.severity,
+    recommended: !!custom?.recommended,
     given: '$',
     then: {
       function: opa,

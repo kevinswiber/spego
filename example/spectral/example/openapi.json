@@ -1,0 +1,114 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "abcd eval('hi') abcd",
+    "version": "1.0.0",
+    "description": "Echo Service",
+    "license": {
+      "name": "MIT"
+    },
+    "contact": {}
+  },
+  "servers": [
+    {
+      "url": "localhost:3000"
+    }
+  ],
+  "tags": [{ "name": "users" }],
+  "paths": {
+    "/user/{userId}": {
+      "post": {
+        "description": "hi <script>there</script> friend",
+        "operationId": "createUser",
+        "responses": {
+          "400": {}
+        },
+        "parameters": [
+          { "name": "a", "in": "body" },
+          { "name": "a", "in": "formData" }
+        ],
+        "tags": ["user"]
+      },
+      "get": {
+        "summary": "Sample endpoint: Returns details about a particular user",
+        "operationId": "listUser",
+        "tags": ["user"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "ID of the user",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Sample response: Details about a user by ID",
+            "headers": {
+              "x-next": {
+                "description": "A link to the next page of responses",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "required": ["code", "message"],
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "security": [
+    {
+      "BasicAuth": []
+    }
+  ]
+}

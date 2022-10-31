@@ -5,6 +5,8 @@ import data.openapi.lib
 # METADATA
 # title: tag-description
 # description: Tag object must have "description".
+# custom:
+#   recommended: false
 results[lib.format(rego.metadata.rule(), path)] {
 	tags := input.tags
 

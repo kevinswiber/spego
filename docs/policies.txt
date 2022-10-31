@@ -74,33 +74,6 @@ NAMESPACES:
 |                                                             | src/...s/tag-description/tag_description_test.rego   |
 +-------------------------------------------------------------+------------------------------------------------------+
 ANNOTATIONS:
-problems
-========
-
-Returns all non-successful rule validation results.
-
-Package:  openapi.main
-Rule:     problems
-Location: src/openapi/main/main.rego:9
-
-violation
-=========
-
-Conftest-compatible violation rule.
-
-Package:  openapi.main
-Rule:     violation
-Location: src/openapi/main/conftest.rego:30
-
-successes
-=========
-
-Returns all successful rule validation results.
-
-Package:  openapi.main
-Rule:     successes
-Location: src/openapi/main/main.rego:28
-
 warn
 ====
 
@@ -109,6 +82,15 @@ Conftest-compatible warn rule.
 Package:  openapi.main
 Rule:     warn
 Location: src/openapi/main/conftest.rego:12
+
+problems
+========
+
+Returns all non-successful rule validation results.
+
+Package:  openapi.main
+Rule:     problems
+Location: src/openapi/main/main.rego:9
 
 results
 =======
@@ -119,6 +101,24 @@ Package:  openapi.main
 Rule:     results
 Location: src/openapi/main/main.rego:39
 
+successes
+=========
+
+Returns all successful rule validation results.
+
+Package:  openapi.main
+Rule:     successes
+Location: src/openapi/main/main.rego:28
+
+violation
+=========
+
+Conftest-compatible violation rule.
+
+Package:  openapi.main
+Rule:     violation
+Location: src/openapi/main/conftest.rego:30
+
 contact-properties
 ==================
 
@@ -126,7 +126,10 @@ Contact object must have "name", "url" and "email".
 
 Package:  openapi.policies["contact-properties"]
 Rule:     results
-Location: src/openapi/policies/contact-properties/contact_properties.rego:8
+Location: src/openapi/policies/contact-properties/contact_properties.rego:10
+
+Custom:
+ recommended: false
 
 duplicated-entry-in-enum
 ========================
@@ -135,7 +138,10 @@ Enum values must not have duplicate entry.
 
 Package:  openapi.policies["duplicated-entry-in-enum"]
 Rule:     results
-Location: src/openapi/policies/duplicated-entry-in-enum/duplicated_entry_in_enum.rego:9
+Location: src/openapi/policies/duplicated-entry-in-enum/duplicated_entry_in_enum.rego:11
+
+Custom:
+ recommended: true
 
 info-contact
 ============
@@ -144,7 +150,10 @@ Info object must have "contact" object.
 
 Package:  openapi.policies["info-contact"]
 Rule:     results
-Location: src/openapi/policies/info-contact/info_contact.rego:8
+Location: src/openapi/policies/info-contact/info_contact.rego:10
+
+Custom:
+ recommended: true
 
 info-description
 ================
@@ -153,7 +162,10 @@ Info "description" must be present and non-empty string.
 
 Package:  openapi.policies["info-description"]
 Rule:     results
-Location: src/openapi/policies/info-description/info_description.rego:8
+Location: src/openapi/policies/info-description/info_description.rego:10
+
+Custom:
+ recommended: true
 
 info-license
 ============
@@ -162,7 +174,10 @@ Info object must have "license" object.
 
 Package:  openapi.policies["info-license"]
 Rule:     results
-Location: src/openapi/policies/info-license/info_license.rego:8
+Location: src/openapi/policies/info-license/info_license.rego:10
+
+Custom:
+ recommended: false
 
 license-url
 ===========
@@ -171,7 +186,10 @@ License object must include "url".
 
 Package:  openapi.policies["license-url"]
 Rule:     results
-Location: src/openapi/policies/license-url/license_url.rego:8
+Location: src/openapi/policies/license-url/license_url.rego:10
+
+Custom:
+ recommended: false
 
 no-eval-in-markdown
 ===================
@@ -180,7 +198,10 @@ Markdown descriptions must not have "eval(".
 
 Package:  openapi.policies["no-eval-in-markdown"]
 Rule:     results
-Location: src/openapi/policies/no-eval-in-markdown/no_eval_in_markdown.rego:9
+Location: src/openapi/policies/no-eval-in-markdown/no_eval_in_markdown.rego:11
+
+Custom:
+ recommended: true
 
 no-script-tags-in-markdown
 ==========================
@@ -189,16 +210,10 @@ Markdown descriptions must not have "<script>" tags.
 
 Package:  openapi.policies["no-script-tags-in-markdown"]
 Rule:     results
-Location: src/openapi/policies/no-script-tags-in-markdown/no_script_tags_in_markdown.rego:9
+Location: src/openapi/policies/no-script-tags-in-markdown/no_script_tags_in_markdown.rego:11
 
-openapi-tags-uniqueness
-=======================
-
-Each tag must have a unique name.
-
-Package:  openapi.policies["openapi-tags-uniqueness"]
-Rule:     results
-Location: src/openapi/policies/openapi-tags-uniqueness/openapi_tags_uniqueness.rego:9
+Custom:
+ recommended: true
 
 openapi-tags
 ============
@@ -207,7 +222,22 @@ OpenAPI object must have non-empty "tags" array.
 
 Package:  openapi.policies["openapi-tags"]
 Rule:     results
-Location: src/openapi/policies/openapi-tags/openapi_tags.rego:8
+Location: src/openapi/policies/openapi-tags/openapi_tags.rego:10
+
+Custom:
+ recommended: false
+
+openapi-tags-uniqueness
+=======================
+
+Each tag must have a unique name.
+
+Package:  openapi.policies["openapi-tags-uniqueness"]
+Rule:     results
+Location: src/openapi/policies/openapi-tags-uniqueness/openapi_tags_uniqueness.rego:11
+
+Custom:
+ recommended: true
 
 operation-description
 =====================
@@ -216,7 +246,10 @@ Operation "description" must be present and non-empty string.
 
 Package:  openapi.policies["operation-description"]
 Rule:     results
-Location: src/openapi/policies/operation-description/operation_description.rego:8
+Location: src/openapi/policies/operation-description/operation_description.rego:10
+
+Custom:
+ recommended: true
 
 operation-operationId-unique
 ============================
@@ -225,11 +258,12 @@ Every operation must have unique "operationId".
 
 Package:  openapi.policies["operation-operationId-unique"]
 Rule:     results
-Location: src/openapi/policies/operation-operationId-unique/operation_operationid_unique.rego:15
+Location: src/openapi/policies/operation-operationId-unique/operation_operationid_unique.rego:16
 
 Custom:
- message:  "operationId must be unique"
- severity: "error"
+ message:     "operationId must be unique"
+ severity:    "error"
+ recommended: true
 
 operation-operationId-valid-in-url
 ==================================
@@ -238,7 +272,10 @@ operationId must not have characters that are invalid when used in URL.
 
 Package:  openapi.policies["operation-operationId-valid-in-url"]
 Rule:     results
-Location: src/openapi/policies/operation-operationId-valid-in-url/operation_operationid_valid_in_url.rego:8
+Location: src/openapi/policies/operation-operationId-valid-in-url/operation_operationid_valid_in_url.rego:10
+
+Custom:
+ recommended: true
 
 operation-operationId
 =====================
@@ -247,7 +284,10 @@ Operation must have "operationId".
 
 Package:  openapi.policies["operation-operationId"]
 Rule:     results
-Location: src/openapi/policies/operation-operationId/operation_operationid.rego:8
+Location: src/openapi/policies/operation-operationId/operation_operationid.rego:10
+
+Custom:
+ recommended: true
 
 operation-parameters
 ====================
@@ -256,7 +296,10 @@ Operation parameters are unique and non-repeating.
 
 Package:  openapi.policies["operation-parameters"]
 Rule:     results
-Location: src/openapi/policies/operation-parameters/operation_parameters.rego:8
+Location: src/openapi/policies/operation-parameters/operation_parameters.rego:10
+
+Custom:
+ recommended: true
 
 operation-singular-tag
 ======================
@@ -265,7 +308,10 @@ Operation must not have more than a singular tag.
 
 Package:  openapi.policies["operation-singular-tag"]
 Rule:     results
-Location: src/openapi/policies/operation-singular-tag/operation_singular_tag.rego:8
+Location: src/openapi/policies/operation-singular-tag/operation_singular_tag.rego:10
+
+Custom:
+ recommended: false
 
 operation-success-response
 ==========================
@@ -274,7 +320,10 @@ Operation must have at least one "2xx" or "3xx" response.
 
 Package:  openapi.policies["operation-success-response"]
 Rule:     results
-Location: src/openapi/policies/operation-success-response/operation_success_response.rego:8
+Location: src/openapi/policies/operation-success-response/operation_success_response.rego:10
+
+Custom:
+ recommended: true
 
 operation-tag-defined
 =====================
@@ -283,7 +332,10 @@ Operation tags must be defined in global tags.
 
 Package:  openapi.policies["operation-tag-defined"]
 Rule:     results
-Location: src/openapi/policies/operation-tag-defined/operation_tag_defined.rego:9
+Location: src/openapi/policies/operation-tag-defined/operation_tag_defined.rego:11
+
+Custom:
+ recommended: true
 
 operation-tags
 ==============
@@ -292,7 +344,10 @@ Operation must have non-empty "tags" array.
 
 Package:  openapi.policies["operation-tags"]
 Rule:     results
-Location: src/openapi/policies/operation-tags/operation_tags.rego:8
+Location: src/openapi/policies/operation-tags/operation_tags.rego:10
+
+Custom:
+ recommended: true
 
 path-declarations-must-exist
 ============================
@@ -301,7 +356,10 @@ Path parameter declarations must not be empty, ex."/given/{}" is invalid.
 
 Package:  openapi.policies["path-declarations-must-exist"]
 Rule:     results
-Location: src/openapi/policies/path-declarations-must-exist/path_declarations_must_exist.rego:8
+Location: src/openapi/policies/path-declarations-must-exist/path_declarations_must_exist.rego:10
+
+Custom:
+ recommended: true
 
 path-keys-no-trailing-slash
 ===========================
@@ -310,7 +368,10 @@ Path must not end with slash.
 
 Package:  openapi.policies["path-keys-no-trailing-slash"]
 Rule:     results
-Location: src/openapi/policies/path-keys-no-trailing-slash/path_keys_no_trailing_slash.rego:8
+Location: src/openapi/policies/path-keys-no-trailing-slash/path_keys_no_trailing_slash.rego:10
+
+Custom:
+ recommended: true
 
 path-not-include-query
 ======================
@@ -319,7 +380,10 @@ Path must not include query string.
 
 Package:  openapi.policies["path-not-include-query"]
 Rule:     results
-Location: src/openapi/policies/path-not-include-query/path_not_include_query.rego:8
+Location: src/openapi/policies/path-not-include-query/path_not_include_query.rego:10
+
+Custom:
+ recommended: true
 
 path-params
 ===========
@@ -328,10 +392,11 @@ Path parameters must be defined and valid.
 
 Package:  openapi.policies["path-params"]
 Rule:     results
-Location: src/openapi/policies/path-params/path_params.rego:11
+Location: src/openapi/policies/path-params/path_params.rego:12
 
 Custom:
- severity: "error"
+ severity:    "error"
+ recommended: true
 
 tag-description
 ===============
@@ -340,5 +405,8 @@ Tag object must have "description".
 
 Package:  openapi.policies["tag-description"]
 Rule:     results
-Location: src/openapi/policies/tag-description/tag_description.rego:8
+Location: src/openapi/policies/tag-description/tag_description.rego:10
+
+Custom:
+ recommended: false
 

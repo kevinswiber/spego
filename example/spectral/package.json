@@ -6,7 +6,7 @@
   "main": "spectral.js",
   "scripts": {
     "build": "./build.sh",
-    "clean": "rimraf bundle.tar.gz policies.json policy.wasm"
+    "clean": "rimraf ./build/bundle.tar.gz ./build/policy.wasm"
   },
   "keywords": [],
   "author": "Kevin Swiber <kswiber@gmail.com>",
