@@ -1,8 +1,7 @@
-const fs = require('node:fs');
 const { loadPolicySync } = require('@open-policy-agent/opa-wasm');
 const { opa } = require('./functions/opa.js');
-const policies = require('./policies');
-const wasm = require('./wasm');
+const policies = require('./policies.js');
+const wasm = require('./wasm.js');
 
 const policyModule = Buffer.from(wasm, 'base64');
 const policy = loadPolicySync(policyModule);
