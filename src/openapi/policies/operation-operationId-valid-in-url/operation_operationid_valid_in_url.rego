@@ -5,8 +5,6 @@ import data.openapi.lib
 # METADATA
 # title: operation-operationId-valid-in-url
 # description: operationId must not have characters that are invalid when used in URL.
-# custom:
-#   recommended: true
 results[lib.format(rego.metadata.rule(), path)] {
 	op := input.paths[p][m]
 	lib.is_method_valid(m)

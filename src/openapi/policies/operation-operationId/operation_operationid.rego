@@ -5,8 +5,6 @@ import data.openapi.lib
 # METADATA
 # title: operation-operationId
 # description: Operation must have "operationId".
-# custom:
-#   recommended: true
 results[lib.format(rego.metadata.rule(), path)] {
 	op := input.paths[p][m]
 	lib.is_method_valid(m)

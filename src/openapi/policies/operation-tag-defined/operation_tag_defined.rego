@@ -6,8 +6,6 @@ import future.keywords.in
 # METADATA
 # title: operation-tag-defined
 # description: Operation tags must be defined in global tags.
-# custom:
-#   recommended: true
 results[lib.format(rego.metadata.rule(), path)] {
 	tags := input.tags
 	global_tags := [tag.name |

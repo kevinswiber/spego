@@ -128,36 +128,6 @@ module.exports = {
   "annotations": [
     {
       "location": {
-        "file": "../../src/openapi/main/conftest.rego",
-        "row": 30,
-        "col": 1
-      },
-      "path": [
-        {
-          "type": "var",
-          "value": "data"
-        },
-        {
-          "type": "string",
-          "value": "openapi"
-        },
-        {
-          "type": "string",
-          "value": "main"
-        },
-        {
-          "type": "string",
-          "value": "violation"
-        }
-      ],
-      "annotations": {
-        "scope": "rule",
-        "title": "violation",
-        "description": "Conftest-compatible violation rule."
-      }
-    },
-    {
-      "location": {
         "file": "../../src/openapi/main/main.rego",
         "row": 9,
         "col": 1
@@ -184,6 +154,36 @@ module.exports = {
         "scope": "rule",
         "title": "problems",
         "description": "Returns all non-successful rule validation results."
+      }
+    },
+    {
+      "location": {
+        "file": "../../src/openapi/main/main.rego",
+        "row": 28,
+        "col": 1
+      },
+      "path": [
+        {
+          "type": "var",
+          "value": "data"
+        },
+        {
+          "type": "string",
+          "value": "openapi"
+        },
+        {
+          "type": "string",
+          "value": "main"
+        },
+        {
+          "type": "string",
+          "value": "successes"
+        }
+      ],
+      "annotations": {
+        "scope": "rule",
+        "title": "successes",
+        "description": "Returns all successful rule validation results."
       }
     },
     {
@@ -218,8 +218,8 @@ module.exports = {
     },
     {
       "location": {
-        "file": "../../src/openapi/main/main.rego",
-        "row": 28,
+        "file": "../../src/openapi/main/conftest.rego",
+        "row": 30,
         "col": 1
       },
       "path": [
@@ -237,13 +237,13 @@ module.exports = {
         },
         {
           "type": "string",
-          "value": "successes"
+          "value": "violation"
         }
       ],
       "annotations": {
         "scope": "rule",
-        "title": "successes",
-        "description": "Returns all successful rule validation results."
+        "title": "violation",
+        "description": "Conftest-compatible violation rule."
       }
     },
     {
@@ -316,7 +316,7 @@ module.exports = {
     {
       "location": {
         "file": "../../src/openapi/policies/duplicated-entry-in-enum/duplicated_entry_in_enum.rego",
-        "row": 11,
+        "row": 9,
         "col": 1
       },
       "path": [
@@ -344,16 +344,13 @@ module.exports = {
       "annotations": {
         "scope": "rule",
         "title": "duplicated-entry-in-enum",
-        "description": "Enum values must not have duplicate entry.",
-        "custom": {
-          "recommended": true
-        }
+        "description": "Enum values must not have duplicate entry."
       }
     },
     {
       "location": {
         "file": "../../src/openapi/policies/info-contact/info_contact.rego",
-        "row": 10,
+        "row": 8,
         "col": 1
       },
       "path": [
@@ -381,16 +378,13 @@ module.exports = {
       "annotations": {
         "scope": "rule",
         "title": "info-contact",
-        "description": "Info object must have \"contact\" object.",
-        "custom": {
-          "recommended": true
-        }
+        "description": "Info object must have \"contact\" object."
       }
     },
     {
       "location": {
         "file": "../../src/openapi/policies/info-description/info_description.rego",
-        "row": 10,
+        "row": 8,
         "col": 1
       },
       "path": [
@@ -418,10 +412,7 @@ module.exports = {
       "annotations": {
         "scope": "rule",
         "title": "info-description",
-        "description": "Info \"description\" must be present and non-empty string.",
-        "custom": {
-          "recommended": true
-        }
+        "description": "Info \"description\" must be present and non-empty string."
       }
     },
     {
@@ -501,7 +492,7 @@ module.exports = {
     {
       "location": {
         "file": "../../src/openapi/policies/no-eval-in-markdown/no_eval_in_markdown.rego",
-        "row": 11,
+        "row": 9,
         "col": 1
       },
       "path": [
@@ -529,16 +520,13 @@ module.exports = {
       "annotations": {
         "scope": "rule",
         "title": "no-eval-in-markdown",
-        "description": "Markdown descriptions must not have \"eval(\".",
-        "custom": {
-          "recommended": true
-        }
+        "description": "Markdown descriptions must not have \"eval(\"."
       }
     },
     {
       "location": {
         "file": "../../src/openapi/policies/no-script-tags-in-markdown/no_script_tags_in_markdown.rego",
-        "row": 11,
+        "row": 9,
         "col": 1
       },
       "path": [
@@ -566,10 +554,41 @@ module.exports = {
       "annotations": {
         "scope": "rule",
         "title": "no-script-tags-in-markdown",
-        "description": "Markdown descriptions must not have \"\u003cscript\u003e\" tags.",
-        "custom": {
-          "recommended": true
+        "description": "Markdown descriptions must not have \"\u003cscript\u003e\" tags."
+      }
+    },
+    {
+      "location": {
+        "file": "../../src/openapi/policies/openapi-tags-uniqueness/openapi_tags_uniqueness.rego",
+        "row": 9,
+        "col": 1
+      },
+      "path": [
+        {
+          "type": "var",
+          "value": "data"
+        },
+        {
+          "type": "string",
+          "value": "openapi"
+        },
+        {
+          "type": "string",
+          "value": "policies"
+        },
+        {
+          "type": "string",
+          "value": "openapi-tags-uniqueness"
+        },
+        {
+          "type": "string",
+          "value": "results"
         }
+      ],
+      "annotations": {
+        "scope": "rule",
+        "title": "openapi-tags-uniqueness",
+        "description": "Each tag must have a unique name."
       }
     },
     {
@@ -611,45 +630,8 @@ module.exports = {
     },
     {
       "location": {
-        "file": "../../src/openapi/policies/openapi-tags-uniqueness/openapi_tags_uniqueness.rego",
-        "row": 11,
-        "col": 1
-      },
-      "path": [
-        {
-          "type": "var",
-          "value": "data"
-        },
-        {
-          "type": "string",
-          "value": "openapi"
-        },
-        {
-          "type": "string",
-          "value": "policies"
-        },
-        {
-          "type": "string",
-          "value": "openapi-tags-uniqueness"
-        },
-        {
-          "type": "string",
-          "value": "results"
-        }
-      ],
-      "annotations": {
-        "scope": "rule",
-        "title": "openapi-tags-uniqueness",
-        "description": "Each tag must have a unique name.",
-        "custom": {
-          "recommended": true
-        }
-      }
-    },
-    {
-      "location": {
         "file": "../../src/openapi/policies/operation-description/operation_description.rego",
-        "row": 10,
+        "row": 8,
         "col": 1
       },
       "path": [
@@ -677,53 +659,13 @@ module.exports = {
       "annotations": {
         "scope": "rule",
         "title": "operation-description",
-        "description": "Operation \"description\" must be present and non-empty string.",
-        "custom": {
-          "recommended": true
-        }
-      }
-    },
-    {
-      "location": {
-        "file": "../../src/openapi/policies/operation-operationId/operation_operationid.rego",
-        "row": 10,
-        "col": 1
-      },
-      "path": [
-        {
-          "type": "var",
-          "value": "data"
-        },
-        {
-          "type": "string",
-          "value": "openapi"
-        },
-        {
-          "type": "string",
-          "value": "policies"
-        },
-        {
-          "type": "string",
-          "value": "operation-operationId"
-        },
-        {
-          "type": "string",
-          "value": "results"
-        }
-      ],
-      "annotations": {
-        "scope": "rule",
-        "title": "operation-operationId",
-        "description": "Operation must have \"operationId\".",
-        "custom": {
-          "recommended": true
-        }
+        "description": "Operation \"description\" must be present and non-empty string."
       }
     },
     {
       "location": {
         "file": "../../src/openapi/policies/operation-operationId-unique/operation_operationid_unique.rego",
-        "row": 16,
+        "row": 15,
         "col": 1
       },
       "path": [
@@ -754,7 +696,6 @@ module.exports = {
         "description": "Every operation must have unique \"operationId\".",
         "custom": {
           "message": "operationId must be unique",
-          "recommended": true,
           "severity": "error"
         }
       }
@@ -762,7 +703,7 @@ module.exports = {
     {
       "location": {
         "file": "../../src/openapi/policies/operation-operationId-valid-in-url/operation_operationid_valid_in_url.rego",
-        "row": 10,
+        "row": 8,
         "col": 1
       },
       "path": [
@@ -790,16 +731,47 @@ module.exports = {
       "annotations": {
         "scope": "rule",
         "title": "operation-operationId-valid-in-url",
-        "description": "operationId must not have characters that are invalid when used in URL.",
-        "custom": {
-          "recommended": true
+        "description": "operationId must not have characters that are invalid when used in URL."
+      }
+    },
+    {
+      "location": {
+        "file": "../../src/openapi/policies/operation-operationId/operation_operationid.rego",
+        "row": 8,
+        "col": 1
+      },
+      "path": [
+        {
+          "type": "var",
+          "value": "data"
+        },
+        {
+          "type": "string",
+          "value": "openapi"
+        },
+        {
+          "type": "string",
+          "value": "policies"
+        },
+        {
+          "type": "string",
+          "value": "operation-operationId"
+        },
+        {
+          "type": "string",
+          "value": "results"
         }
+      ],
+      "annotations": {
+        "scope": "rule",
+        "title": "operation-operationId",
+        "description": "Operation must have \"operationId\"."
       }
     },
     {
       "location": {
         "file": "../../src/openapi/policies/operation-parameters/operation_parameters.rego",
-        "row": 10,
+        "row": 8,
         "col": 1
       },
       "path": [
@@ -827,10 +799,7 @@ module.exports = {
       "annotations": {
         "scope": "rule",
         "title": "operation-parameters",
-        "description": "Operation parameters are unique and non-repeating.",
-        "custom": {
-          "recommended": true
-        }
+        "description": "Operation parameters are unique and non-repeating."
       }
     },
     {
@@ -873,7 +842,7 @@ module.exports = {
     {
       "location": {
         "file": "../../src/openapi/policies/operation-success-response/operation_success_response.rego",
-        "row": 10,
+        "row": 8,
         "col": 1
       },
       "path": [
@@ -901,16 +870,13 @@ module.exports = {
       "annotations": {
         "scope": "rule",
         "title": "operation-success-response",
-        "description": "Operation must have at least one \"2xx\" or \"3xx\" response.",
-        "custom": {
-          "recommended": true
-        }
+        "description": "Operation must have at least one \"2xx\" or \"3xx\" response."
       }
     },
     {
       "location": {
         "file": "../../src/openapi/policies/operation-tag-defined/operation_tag_defined.rego",
-        "row": 11,
+        "row": 9,
         "col": 1
       },
       "path": [
@@ -938,16 +904,13 @@ module.exports = {
       "annotations": {
         "scope": "rule",
         "title": "operation-tag-defined",
-        "description": "Operation tags must be defined in global tags.",
-        "custom": {
-          "recommended": true
-        }
+        "description": "Operation tags must be defined in global tags."
       }
     },
     {
       "location": {
         "file": "../../src/openapi/policies/operation-tags/operation_tags.rego",
-        "row": 10,
+        "row": 8,
         "col": 1
       },
       "path": [
@@ -975,16 +938,13 @@ module.exports = {
       "annotations": {
         "scope": "rule",
         "title": "operation-tags",
-        "description": "Operation must have non-empty \"tags\" array.",
-        "custom": {
-          "recommended": true
-        }
+        "description": "Operation must have non-empty \"tags\" array."
       }
     },
     {
       "location": {
         "file": "../../src/openapi/policies/path-declarations-must-exist/path_declarations_must_exist.rego",
-        "row": 10,
+        "row": 8,
         "col": 1
       },
       "path": [
@@ -1012,16 +972,13 @@ module.exports = {
       "annotations": {
         "scope": "rule",
         "title": "path-declarations-must-exist",
-        "description": "Path parameter declarations must not be empty, ex.\"/given/{}\" is invalid.",
-        "custom": {
-          "recommended": true
-        }
+        "description": "Path parameter declarations must not be empty, ex.\"/given/{}\" is invalid."
       }
     },
     {
       "location": {
         "file": "../../src/openapi/policies/path-keys-no-trailing-slash/path_keys_no_trailing_slash.rego",
-        "row": 10,
+        "row": 8,
         "col": 1
       },
       "path": [
@@ -1049,16 +1006,13 @@ module.exports = {
       "annotations": {
         "scope": "rule",
         "title": "path-keys-no-trailing-slash",
-        "description": "Path must not end with slash.",
-        "custom": {
-          "recommended": true
-        }
+        "description": "Path must not end with slash."
       }
     },
     {
       "location": {
         "file": "../../src/openapi/policies/path-not-include-query/path_not_include_query.rego",
-        "row": 10,
+        "row": 8,
         "col": 1
       },
       "path": [
@@ -1086,16 +1040,13 @@ module.exports = {
       "annotations": {
         "scope": "rule",
         "title": "path-not-include-query",
-        "description": "Path must not include query string.",
-        "custom": {
-          "recommended": true
-        }
+        "description": "Path must not include query string."
       }
     },
     {
       "location": {
         "file": "../../src/openapi/policies/path-params/path_params.rego",
-        "row": 12,
+        "row": 11,
         "col": 1
       },
       "path": [
@@ -1125,7 +1076,6 @@ module.exports = {
         "title": "path-params",
         "description": "Path parameters must be defined and valid.",
         "custom": {
-          "recommended": true,
           "severity": "error"
         }
       }

@@ -6,8 +6,6 @@ import future.keywords.in
 # METADATA
 # title: duplicated-entry-in-enum 
 # description: Enum values must not have duplicate entry.
-# custom:
-#   recommended: true
 results[lib.format_msg(rego.metadata.rule(), path, message)] {
 	enums := {[current_path, enum] |
 		some value

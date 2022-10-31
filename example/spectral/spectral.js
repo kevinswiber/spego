@@ -19,7 +19,7 @@ for (const { title, description, custom } of policyAnnotations) {
   rules[title] = {
     description,
     severity: custom?.severity,
-    recommended: !!custom?.recommended,
+    recommended: custom?.recommended,
     given: '$',
     then: {
       function: opa,

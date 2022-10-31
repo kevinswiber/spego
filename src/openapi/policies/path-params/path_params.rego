@@ -8,7 +8,6 @@ import data.openapi.policies["path-params"].lib as policy_lib
 # description: Path parameters must be defined and valid.
 # custom:
 #   severity: error
-#   recommended: true
 results[lib.format_msg(rego.metadata.rule(), path, message)] {
 	paths := input.paths
 

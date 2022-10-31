@@ -5,8 +5,6 @@ import data.openapi.lib
 # METADATA
 # title: operation-parameters
 # description: Operation parameters are unique and non-repeating.
-# custom:
-#   recommended: true
 results[lib.format_msg(rego.metadata.rule(), path, message)] {
 	op := input.paths[p][m]
 	lib.is_method_valid(m)

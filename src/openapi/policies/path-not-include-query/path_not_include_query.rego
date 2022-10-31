@@ -5,8 +5,6 @@ import data.openapi.lib
 # METADATA
 # title: path-not-include-query
 # description: Path must not include query string.
-# custom:
-#   recommended: true
 results[lib.format(rego.metadata.rule(), path)] {
 	some path_key
 	input.paths[path_key]
