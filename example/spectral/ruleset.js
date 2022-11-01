@@ -1,5 +1,5 @@
 import { oas2, oas3 } from '@stoplight/spectral-formats';
-import opaWasm from 'https://cdn.skypack.dev/@open-policy-agent/opa-wasm';
+import opaWasm from '@open-policy-agent/opa-wasm';
 import { opa } from './functions/opa.js';
 import { annotations } from './policies.js';
 import { policyWasmBuffer } from './wasm.js';
