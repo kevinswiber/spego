@@ -1,4 +1,4 @@
-exports.opa = function opa(input, { code, policy }) {
+export async function opa(input, { code, policy }) {
   policy.setData({
     openapi: {
       ruleset: {
@@ -9,9 +9,9 @@ exports.opa = function opa(input, { code, policy }) {
   });
 
   try {
-    const result = policy.evaluate(input, 'openapi/main/problems');
+    const result = policy.evaluate(input);
     return result[0].result;
   } catch (err) {
     console.error('Error executing OPA policy:', err);
   }
-};
+}

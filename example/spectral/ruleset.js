@@ -1,12 +1,12 @@
-const { loadPolicySync } = require('@open-policy-agent/opa-wasm');
-const { opa } = require('./functions/opa.js');
-const policies = require('./policies.js');
-const wasm = require('./wasm.js');
+import { oas2, oas3 } from '@stoplight/spectral-formats';
+import opaWasm from 'https://cdn.skypack.dev/@open-policy-agent/opa-wasm';
+import { opa } from './functions/opa.js';
+import { annotations } from './policies.js';
+import { policyWasmBuffer } from './wasm.js';
 
-const policyModule = Buffer.from(wasm, 'base64');
-const policy = loadPolicySync(policyModule);
+const policy = opaWasm.loadPolicySync(policyWasmBuffer);
 
-const policyAnnotations = policies?.annotations
+const policyAnnotations = annotations
   .filter(
     (policy) => policy.location.file.includes('policies') && policy.annotations
   )
@@ -19,6 +19,7 @@ for (const { title, description, custom } of policyAnnotations) {
     description,
     severity: custom?.severity,
     recommended: custom?.recommended,
+    formats: [oas2, oas3],
     given: '$',
     then: {
       function: opa,
@@ -30,6 +31,6 @@ for (const { title, description, custom } of policyAnnotations) {
   };
 }
 
-module.exports = {
+export default {
   rules,
 };

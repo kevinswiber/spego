@@ -188,6 +188,36 @@ module.exports = {
     },
     {
       "location": {
+        "file": "../../src/openapi/main/conftest.rego",
+        "row": 12,
+        "col": 1
+      },
+      "path": [
+        {
+          "type": "var",
+          "value": "data"
+        },
+        {
+          "type": "string",
+          "value": "openapi"
+        },
+        {
+          "type": "string",
+          "value": "main"
+        },
+        {
+          "type": "string",
+          "value": "warn"
+        }
+      ],
+      "annotations": {
+        "scope": "rule",
+        "title": "warn",
+        "description": "Conftest-compatible warn rule."
+      }
+    },
+    {
+      "location": {
         "file": "../../src/openapi/main/main.rego",
         "row": 39,
         "col": 1
@@ -244,36 +274,6 @@ module.exports = {
         "scope": "rule",
         "title": "violation",
         "description": "Conftest-compatible violation rule."
-      }
-    },
-    {
-      "location": {
-        "file": "../../src/openapi/main/conftest.rego",
-        "row": 12,
-        "col": 1
-      },
-      "path": [
-        {
-          "type": "var",
-          "value": "data"
-        },
-        {
-          "type": "string",
-          "value": "openapi"
-        },
-        {
-          "type": "string",
-          "value": "main"
-        },
-        {
-          "type": "string",
-          "value": "warn"
-        }
-      ],
-      "annotations": {
-        "scope": "rule",
-        "title": "warn",
-        "description": "Conftest-compatible warn rule."
       }
     },
     {
@@ -664,6 +664,40 @@ module.exports = {
     },
     {
       "location": {
+        "file": "../../src/openapi/policies/operation-operationId/operation_operationid.rego",
+        "row": 8,
+        "col": 1
+      },
+      "path": [
+        {
+          "type": "var",
+          "value": "data"
+        },
+        {
+          "type": "string",
+          "value": "openapi"
+        },
+        {
+          "type": "string",
+          "value": "policies"
+        },
+        {
+          "type": "string",
+          "value": "operation-operationId"
+        },
+        {
+          "type": "string",
+          "value": "results"
+        }
+      ],
+      "annotations": {
+        "scope": "rule",
+        "title": "operation-operationId",
+        "description": "Operation must have \"operationId\"."
+      }
+    },
+    {
+      "location": {
         "file": "../../src/openapi/policies/operation-operationId-unique/operation_operationid_unique.rego",
         "row": 15,
         "col": 1
@@ -732,40 +766,6 @@ module.exports = {
         "scope": "rule",
         "title": "operation-operationId-valid-in-url",
         "description": "operationId must not have characters that are invalid when used in URL."
-      }
-    },
-    {
-      "location": {
-        "file": "../../src/openapi/policies/operation-operationId/operation_operationid.rego",
-        "row": 8,
-        "col": 1
-      },
-      "path": [
-        {
-          "type": "var",
-          "value": "data"
-        },
-        {
-          "type": "string",
-          "value": "openapi"
-        },
-        {
-          "type": "string",
-          "value": "policies"
-        },
-        {
-          "type": "string",
-          "value": "operation-operationId"
-        },
-        {
-          "type": "string",
-          "value": "results"
-        }
-      ],
-      "annotations": {
-        "scope": "rule",
-        "title": "operation-operationId",
-        "description": "Operation must have \"operationId\"."
       }
     },
     {

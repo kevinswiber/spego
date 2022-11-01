@@ -1,4 +1,4 @@
-extends: [['../spectral.js', 'recommended']]
+extends: [['../ruleset.js', 'recommended']]
 rules:
   no-script-tags-in-markdown: error
   no-eval-in-markdown: error
