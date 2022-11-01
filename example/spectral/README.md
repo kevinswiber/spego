@@ -6,6 +6,16 @@ Feel free to use this as a template for executing your own policies.
 
 ## Usage
 
+You can run this specific ruleset via a URL.
+
+```sh
+spectral lint \
+  -r https://raw.githubusercontent.com/kevinswiber/spego/main/example/spectral/ruleset.js \
+  openapi.json
+```
+
+But more than likely, you'll want to bundle your own policies and can use this as a template.
+
 Be sure to follow the [Spectral install instructions](https://meta.stoplight.io/docs/spectral/b8391e051b7d8-installation).
 
 ```sh
