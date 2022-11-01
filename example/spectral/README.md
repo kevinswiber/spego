@@ -23,13 +23,13 @@ git clone git@github.com:kevinswiber/spego.git
 cd ./spego/example/spectral
 npm install
 npm run build
-spectral lint ../inputs/openapi.json
+spectral lint -r ./ruleset.js ../inputs/openapi.json
 ```
 
 Furthermore, this ruleset can be extended. See the `example` directory. Example extended Spectral ruleset:
 
 ```yaml
-extends: [['../spectral.js', 'recommended']]
+extends: [['../ruleset.js', 'recommended']]
 rules:
   no-script-tags-in-markdown: error
   no-eval-in-markdown: error
