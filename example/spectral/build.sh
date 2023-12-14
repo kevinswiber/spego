@@ -11,7 +11,7 @@ echo "2. Extracting policy.wasm from bundle..."
 tar -xzf ./build/bundle.tar.gz -C ./build /policy.wasm 2>&1 | grep -v "Removing leading"
 
 echo "3. Converting Wasm file into a base64-decoded string: ./wasm.js"
-wasm=$(base64 ./build/policy.wasm)
+wasm=$(openssl base64 -A -in ./build/policy.wasm)
 echo "exports.policyWasmBuffer = Buffer.from(\`$wasm\`, 'base64');" >./wasm.js
 
 echo "4. Extracting annotations: ./policies.js"
